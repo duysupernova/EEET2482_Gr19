@@ -1,38 +1,49 @@
 #include <string>
 #include <time.h>
 #include <iostream>
+#include "period.h"
 using std::cout;
 using std::string;
 
-class Period {
-    tm startDate;
-    tm endDate;
-public:
-    Period(tm firstDateVal,tm secDateVal){
-    /*
-    Automatically adjust which date is start and end
-    */
-   this->startDate = firstDateVal;
-   this->endDate = secDateVal;
+/*DEFINITIONS*/
+// Constructor
+Period::Period(tm firstDateVal,tm secDateVal){
+/*
+Automatically adjust which date is start and end
+Is slower
+*/
+    if(difftime(mktime(&firstDateVal),mktime(&secDateVal))<0){
+        this->startDate = firstDateVal;
+        this->endDate = secDateVal;
+    } else {
+        this->startDate = secDateVal;
+        this->endDate = firstDateVal;
+    }
 }
-    void showInfo(){
-        char* startInfo = new char[9];
-        char* endInfo = new char[9];
-        char timeFormat[20] =  "%A %b%d %Y";
-        strftime(startInfo,50,timeFormat,&startDate);
-        strftime(endInfo,50,timeFormat,&endDate);
-        std::cout << "Period: " << startInfo << " --> " << endInfo << "\n";
-    }
-    
-    bool isInPeriod(tm dateToCheck){                                        // Including start and date
-        return (difftime(mktime(&startDate),mktime(&dateToCheck)) < 0     // difftime return negative double if the first date is sooner
-                && difftime(mktime(&dateToCheck),mktime(&endDate)) < 0);   // Is the date between start and date 
-    }
-    bool isInPeriod(Period periodToCheck){                                                  // Focus on the false cases
-        return !(difftime(mktime(&periodToCheck.endDate),mktime(&this->startDate))<0        //  ___0--X____START--END_____
-            || difftime(mktime(&this->endDate),mktime(&periodToCheck.startDate))<0);        //  ___START--END____0--X____
-    }
-};
+void Period::showInfo(){
+    char* startInfo = new char[9];
+    char* endInfo = new char[9];
+    char timeFormat[20] =  "%A %b%d %Y";
+    strftime(startInfo,50,timeFormat,&startDate);
+    strftime(endInfo,50,timeFormat,&endDate);
+    std::cout << "Period: " << startInfo << " --> " << endInfo << "\n";
+}
+
+bool Period::isDateInPeriod(tm dateToCheck){                                 // Including start and date
+    return (difftime(mktime(&startDate),mktime(&dateToCheck)) <= 0       // difftime return negative double if the first date is sooner
+            && difftime(mktime(&dateToCheck),mktime(&endDate)) <= 0);    // Is the date between start and date 
+}
+bool Period::isOverlapPeriod(Period periodToCheck){                                     // Focus on the false cases ; INCLUDE start end date
+    /* For remove occupied period function*/
+    return !(difftime(mktime(&periodToCheck.endDate),mktime(&this->startDate))<0            //   ___0--X____START--END_____
+            || difftime(mktime(&this->endDate),mktime(&periodToCheck.startDate))<0);        //   ___START--END____0--X____
+}
+bool Period::isInsidePeriod(Period periodToCheck){                                      
+    /* For find suitable period function*/
+    return (difftime(mktime(&this->startDate),mktime(&periodToCheck.startDate))<=0           //  ____START---0==X---END_____
+            && difftime(mktime(&periodToCheck.endDate),mktime(&this->endDate))<=0);        
+}
+
 
 tm toTM(int dd, int mm, int yy){
     time_t rawTime = time(NULL);             //Without raw time, localtime function doesnt work
@@ -53,8 +64,8 @@ int main() {
     time_t now = time(NULL);
     struct tm nowlocal = *localtime(&now);
 
-    cout << period1.isInPeriod(nowlocal) << "\n";
-    cout << period2.isInPeriod(period1);
+    cout << period1.isDateInPeriod(nowlocal) << "\n";
+    cout << period2.isOverlapPeriod(period1);
 
 /*    //Test the difftime function
     time_t now; 
