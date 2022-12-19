@@ -16,7 +16,8 @@ public:
     string city;
     int Score_required;
 
-    
+    // Chinh lai phan class house nhe, may cai attribute thi em phai de private het
+    // Con phan public chi de function ra thoi vd: void display() gi do
 
     int averageRating(int usertotal){
         int Avg = House_Rating / usertotal;
