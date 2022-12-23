@@ -7,29 +7,33 @@ using std::cout;
 
 class HOUSE{
 private:
-    string User_review;
-    int House_Rating;
+
     string house_name;
     string location;
     string description;
     string city;
     int Score_required;
+
+    string User_review;
+    int House_Rating;    
 public:
 
 
     // Chinh lai phan class house nhe, may cai attribute thi em phai de private het
     // Con phan public chi de function ra thoi vd: void display() gi do
 
+    //cal avg rating
     int averageRating(int usertotal){
         int Avg = House_Rating / usertotal;
 
         return Avg;
     }
-    string Getdescription(){
+    
+    //get house décription
+    void Getdescription(){
         cout << "Input desciption about the house: \n";
         getline(cin, description);
-
-        return description;
+        return ;
     }
 
     string GetcityLive(){
@@ -40,10 +44,11 @@ public:
         };
         return city;
     }
-    string GetUser_review(){
-        getline(cin, User_review);
-        return User_review;
-    }
+    
+//     string GetUser_review(){
+//         getline(cin, User_review);
+//         return User_review;
+//     }
 
     void showHouseInfo(){
         std::cout << "Name = " << name
