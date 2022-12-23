@@ -9,12 +9,13 @@ class HOUSE{
 private:
     string User_review;
     int House_Rating;
-public:
-    string name;
+    string house_name;
     string location;
     string description;
     string city;
     int Score_required;
+public:
+
 
     // Chinh lai phan class house nhe, may cai attribute thi em phai de private het
     // Con phan public chi de function ra thoi vd: void display() gi do
