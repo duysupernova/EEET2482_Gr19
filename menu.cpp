@@ -7,31 +7,41 @@
 
 using namespace std;
 
-class guest{
+class Guest{
     private:
     string guestFullName;
     string guestUserName;
     string guestPassword;
     int guestPhone;
     public:
+    Guest(string guestFullName = " ", string guestUserName = " ", string guestPassword = " ", int guestPhoneVal = 0) : guestFullName(guestFullName), guestUserName(guestUserName), 
+                                                                                                guestPassword(guestPassword), guestPhone(guestPhoneVal){
+
+    }
+
     void register_form();
     void display_house();
 };
 
-class member{
+class Member : public Guest{
     private:
         string fullName;
         string userName;
         string password;
         int phone;
-        int creditPoint = 500;
-        int occupierRatingScore = 0;
+        int creditPoint;
+        int occupierRatingScore;
+        // House houseForRent;
     public:
+        Member(string fullName = " ", string userName = " ", string password = " ", int phone = 0, int creditPointVal = 500, int occupierRatingScoreVal = 0) : Guest(fullName, userName, password, phone),
+        creditPoint(creditPointVal), occupierRatingScore(occupierRatingScoreVal){
+
+        } 
         void login_form();
 };
 
 
-void guest::register_form(){
+void Guest::register_form(){
     system("cls");
     cout << "Please provide your name: ";
     cin >> guestFullName;
@@ -48,40 +58,9 @@ void guest::register_form(){
     cout << "Registration is successfull!" << endl << endl;
 }
 
-void member::login_form(){
-    int exist;
-    string checkUser, checkPassword;
-    system("cls");
-    cout << "Username: ";
-    cin >> userName;
-    cout << "Password: ";
-    cin >> password;
-
-    ifstream input("database.txt");
-
-    while(input >> checkUser >> checkPassword) {
-        if(checkUser == userName && checkPassword == checkPassword) {
-            exist = 1;
-        }
-    }
-    input.close();
-    if(exist == 1) {
-        cout << "Welcome, " << userName << "! We glad you are here.";
-        cin.get();
-        cin.get();
-        // main_menu();
-    }
-    else {
-        cout << "Fail to login. If you dont have an account, please register!";
-        cin.get();
-        cin.get();
-        // main_menu();
-    }
-    }
-
 void main_menu(){
-    guest g;
-    member m;
+    Guest g;
+    Member m;
     int select_option;
         cout << "******************************************************" << endl;
         cout << "        VACATION HOUSE EXCHANGE APPLICATION" << endl;
@@ -113,6 +92,33 @@ void main_menu(){
         main_menu();
     }
 }
+
+void Member::login_form(){
+    int exist;
+    string checkUser, checkPassword;
+    system("cls");
+    cout << "Username: ";
+    cin >> userName;
+    cout << "Password: ";
+    cin >> password;
+
+    ifstream input("database.txt");
+
+    while(input >> checkUser >> checkPassword) {
+        if(checkUser == userName && checkPassword == checkPassword) {
+            exist = 1;
+        }
+    }
+    input.close();
+    if(exist == 1) {
+        cout << "Welcome, " << userName << "! We glad you are here.";
+        main_menu();
+    }
+    else {
+        cout << "Fail to login. If you dont have an account, please register!" << endl;
+        main_menu();
+    }
+    }
 
 int main(){
     main_menu();
