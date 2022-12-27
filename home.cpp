@@ -95,7 +95,7 @@ public:
 
 
     }
-    HOUSE(){}
+    HOUSE(){} //default constructor
 
 
 
