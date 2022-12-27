@@ -108,7 +108,7 @@ int main(){
     house1.GetUser_review();
     house1.GetHouse_Rating();
 
-    house1.showHouseInfo2(); //for guest
+    house1.showHouseInfo2(); //for member and admin
 
 
 
