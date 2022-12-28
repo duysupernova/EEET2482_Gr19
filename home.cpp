@@ -1,78 +1,125 @@
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <vector>
 
 using std::string;
 using std::cin;
 using std::cout;
+using std::endl;
 
-class house{
+class House{
 private:
-
-    string house_name;
+//some basic infomation of the house
     string location;
     string description;
-    string city;
-    int Score_required;
+//For user review the house
+    int House_Rating = 0;
+    int number_of_user = 0; //total  user
 
-    string User_review;
-    int House_Rating;    
+    //std::vector<*Member> request;
+    std::vector<string> review; 
+
+// //For Owner review Occupier
+//     int Score_For_Renter;
+//     vector<string> review_Owner;
+//     int Owners;  //Total of Owners
+//     int Total_of_ownerscore;
+//     int avgScore_For_Renter;
+
+
 public:
-
-
-    // Chinh lai phan class house nhe, may cai attribute thi em phai de private het
-    // Con phan public chi de function ra thoi vd: void display() gi do
-
-    //cal avg rating
-    int averageRating(int usertotal){
-        int Avg = House_Rating / usertotal;
-
-        return Avg;
-    }
-    
-    //get house décription
-    void Getdescription(){
-        cout << "Input desciption about the house: \n";
-        getline(cin, description);
-        return ;
-    }
-
-    string GetcityLive(){
-        getline(cin, city);
-        if ((city != "Ha Noi") || (city != "Hue") || (city != "Sai Gon")){
+    //select city
+    string Getlocation(){
+        cout << "Enter house location(Ha Noi, Hue, Sai Gon): ";
+        getline(cin, location);
+        if ((location != "Ha Noi") && (location != "Hue") && (location != "Sai Gon")){ //limit the city choice
             cout << "Wrong input city (Ha Noi, Hue, Sai Gon), Please choose a city: ";
-            getline(cin, city);
-        };
-        return city;
+            getline(cin, location);
+        }
+        return location;
     }
-    
-//     string GetUser_review(){
-//         getline(cin, User_review);
-//         return User_review;
-//     }
 
-    void showHouseInfo(){
-        std::cout << "Name = " << house_name
-                  << ", location = " << location
+    //input description for the house
+   string Getdescription(){
+        cout << "Input description about the house: ";
+        getline(cin, description);
+        return description;
+    }
+
+    //for everytime Rentors rent succesfully the same house
+    void Success(){
+        cout << "Congrat, you have success rented this house";
+        number_of_user++;       
+    }
+
+
+
+    //get user review
+    void GetUser_review(){
+        string User_review;
+        cout <<"What are your thought about the house: ";
+        getline(cin, User_review);
+        review.push_back (User_review);
+    }
+
+
+    //ask user to rate the house from -10 to 10
+   void GetHouse_Rating(){ 
+        cout << "Please rate quality of the house from -10(Very Dislikke) - 10(Very like): ";
+        cin >> House_Rating;
+
+        while (House_Rating < -10 || House_Rating > 10){ //Error check if user input wrong scale value
+            cout << "Error!, please rate the house from -10(Very Dislike) - 10(Very like): ";
+            cin >> House_Rating;
+        }
+
+    }
+
+
+        //calculate the house rating score
+    int User_review_House_Rating(){
+        int avgHouse_Rating = 0;
+        int Total_HouseRating = 0; //sum of all user rating score
+        
+        Total_HouseRating += House_Rating; //Get Total of house rating score
+        avgHouse_Rating = Total_HouseRating / number_of_user; //get average rating score
+        return avgHouse_Rating;
+    } 
+
+
+
+
+    void showHouseInfo1(){ //show info that guest can see(Dont have User review)
+        std::cout << "location = " << location
                   << "\ndescription = "<< description
-                  << "\ncity = " << city
-                  << "\nScore required = " << Score_required;
+                  << "\nScore required = " << User_review_House_Rating();
     }
 
-    void showHouseInfo2(){
-        std::cout <<"User review = " << User_review
-                  <<"House Rating = " << House_Rating;
-
-
+    void showHouseInfo2(){ //show more info for member and admin
+        std::cout << "location = " << location
+                  << "\ndescription = "<< description
+                  <<"\nUser review = " <<  review[0]
+                  <<"\nHouse Rating = " << User_review_House_Rating() << endl;
+                  
     }
+
+    House(){} //Default constructor
+
 
 };
 int main(){
-    house house1;
-
+    House house1;
+    house1.Getlocation();
     house1.Getdescription();
-    house1.GetcityLive();
+    house1.Success();
+    house1.Success();
+    house1.GetUser_review();
+    house1.GetHouse_Rating();
 
-    house1.showHouseInfo();
+    house1.showHouseInfo1(); //for guest
+    cout << "\n";
+    house1.showHouseInfo2(); //for member and admin
 
 
 
