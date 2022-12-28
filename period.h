@@ -3,14 +3,16 @@
 
 #include <string>
 #include <time.h>
-
+using std::string;
 
 class Period {
     tm startDate;
     tm endDate;
 public:
     Period(tm firstDateVal, tm secDateVal);
+    Period(int startDay,int startMnt, int startY, int endDay, int endMnt, int endY);
     void showInfo();
+    string toString();
     bool isDateInPeriod(tm dateToCheck);
     bool isOverlapPeriod(Period periodToCheck);
     bool isInsidePeriod(Period periodToCheck);

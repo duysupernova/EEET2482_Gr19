@@ -1,9 +1,11 @@
 #include <string>
 #include <time.h>
 #include <iostream>
+#include <cstring>
 #include "period.h"
 using std::cout;
 using std::string;
+using std::strcat;
 
 /*DEFINITIONS*/
 // Constructor
@@ -20,6 +22,11 @@ Is slower
         this->endDate = firstDateVal;
     }
 }
+// Overloaded functions for integer parameter
+Period::Period(int startDay,int startMth, int startY, int endDay, int endMth, int endY){
+    Period(toTM(startDay,startMth,startY),toTM(endDay,endMth,endY));
+}
+
 void Period::showInfo(){
     char* startInfo = new char[9];
     char* endInfo = new char[9];
@@ -27,6 +34,16 @@ void Period::showInfo(){
     strftime(startInfo,50,timeFormat,&startDate);
     strftime(endInfo,50,timeFormat,&endDate);
     std::cout << "Period: " << startInfo << " --> " << endInfo << "\n";
+}
+
+string Period::toString(){
+    char* startInfo = new char[9];
+    char* endInfo = new char[9];
+    char timeFormat[20] =  "%d/%M/%Y";
+    strftime(startInfo,50,timeFormat,&startDate);
+    strftime(endInfo,50,timeFormat,&endDate);
+    char divide[] = "/";
+    return std::strcat(startInfo, strcat(divide,endInfo) );
 }
 
 bool Period::isDateInPeriod(tm dateToCheck){                                 // Including start and date
@@ -65,8 +82,9 @@ int main() {
     struct tm nowlocal = *localtime(&now);
 
     cout << period1.isDateInPeriod(nowlocal) << "\n";
-    cout << period2.isOverlapPeriod(period1);
+    cout << period2.isOverlapPeriod(period1) << "\n";
 
+    cout << period1.toString();
 /*    //Test the difftime function
     time_t now; 
     struct tm newyear; 

@@ -5,7 +5,7 @@ using std::string;
 using std::cin;
 using std::cout;
 
-class HOUSE{
+class house{
 private:
 
     string house_name;
@@ -51,7 +51,7 @@ public:
 //     }
 
     void showHouseInfo(){
-        std::cout << "Name = " << name
+        std::cout << "Name = " << house_name
                   << ", location = " << location
                   << "\ndescription = "<< description
                   << "\ncity = " << city
@@ -67,7 +67,7 @@ public:
 
 };
 int main(){
-    HOUSE house1;
+    house house1;
 
     house1.Getdescription();
     house1.GetcityLive();

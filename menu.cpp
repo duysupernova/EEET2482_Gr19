@@ -35,7 +35,6 @@ class Member : public Guest{
     public:
         Member(string fullName = " ", string userName = " ", string password = " ", int phone = 0, int creditPointVal = 500, int occupierRatingScoreVal = 0) : Guest(fullName, userName, password, phone),
         creditPoint(creditPointVal), occupierRatingScore(occupierRatingScoreVal){
-
         } 
         void login_form();
 };
