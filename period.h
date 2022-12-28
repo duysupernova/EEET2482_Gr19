@@ -10,7 +10,7 @@ class Period {
     tm endDate;
 public:
     Period(tm firstDateVal, tm secDateVal);
-    Period(int startDay,int startMnt, int startY, int endDay, int endMnt, int endY);
+    Period(int startDay,int startMth, int startY, int endDay, int endMth, int endY);
     void showInfo();
     string toString();
     bool isDateInPeriod(tm dateToCheck);

@@ -24,7 +24,8 @@ Is slower
 }
 // Overloaded functions for integer parameter
 Period::Period(int startDay,int startMth, int startY, int endDay, int endMth, int endY){
-    Period(toTM(startDay,startMth,startY),toTM(endDay,endMth,endY));
+    this->startDate = toTM(startDay,startMth,startY);
+    this->endDate = toTM(endDay,endMth,endY);
 }
 
 void Period::showInfo(){
@@ -74,7 +75,7 @@ tm toTM(int dd, int mm, int yy){
 }
 
 int main() {
-    Period period1(toTM(11,12,2022),toTM(16,12,2022));
+    Period period1(11,12,2022,16,12,2022);
     Period period2(toTM(10,12,2022),toTM(14,12,2022));
     period1.showInfo();
 
