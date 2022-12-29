@@ -49,7 +49,7 @@ public:
 
     //for everytime Rentors rent succesfully the same house
     void Success(){
-        cout << "Congrat, you have successfully rented this house";
+        cout << "Congrat, you have successfully rented this house"; << endl;
         number_of_user++;       
     }
 
