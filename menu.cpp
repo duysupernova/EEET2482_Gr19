@@ -40,6 +40,25 @@ class Member : public Guest{
         void login_form();
 };
 
+void userOption(){
+    system("cls");
+    int userOpt;
+    cout << "Please select your action! " << endl;
+    cout << "1. Manage your house" << endl;
+    cout << "2. Rent a house" << endl;
+    cin >> userOpt;
+    switch (userOpt) {
+        case 1:
+        cout << "Quan li nha";  // cai nay se thay bang function cua bon ng dung 
+        break;
+        case 2:
+        cout << "Xem nha"; // cai nay se thay bang function cua bon xem nha 
+        break;
+        default:
+        cout << "Please enter an option!";
+        userOption();
+    }
+}
 
 void Guest::register_form(){
     system("cls");
