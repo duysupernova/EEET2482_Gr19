@@ -38,6 +38,8 @@ class Member : public Guest{
 
         } 
         void login_form();
+        void listHouse();
+        void unlistHouse();
 };
 
 void userOption(){
@@ -131,6 +133,7 @@ void Member::login_form(){
     input.close();
     if(exist == 1) {
         cout << "Welcome, " << userName << "! We glad you are here.";
+        userOption();
         main_menu();
     }
     else {
@@ -138,6 +141,30 @@ void Member::login_form(){
         main_menu();
     }
     }
+
+void Member :: listHouse(){
+    string startDate, endDate;
+    int consumingPointPerDay, minimumRatingScore;
+    cout << "Start date: ";
+    cin >> startDate;
+    cout << "End date: ";
+    cin >> endDate;
+    cout << "Consunming point per day: ";
+    cin >> consumingPointPerDay;
+    cout << "Minimum rating score: ";
+    cin >> minimumRatingScore;
+    if (occupierRatingScore < minimumRatingScore) {
+        cout << "Please improve the score in order to rent the house";
+    } else {
+        cout << "Success!";
+    }
+}
+
+void Member :: unlistHouse(){
+    // houseName;
+    // functrion remove a index in a array
+}
+
 
 int main(){
     main_menu();
