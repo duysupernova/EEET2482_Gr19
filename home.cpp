@@ -30,7 +30,7 @@ private:
 
 public:
     //select city
-    string getLocation(){
+    string get_Location(){
         cout << "Enter house location(Ha Noi, Hue, Sai Gon): ";
         getline(cin, location);
         while ((location != "Ha Noi") && (location != "Hue") && (location != "Sai Gon")){ //limit the city choice
@@ -41,7 +41,7 @@ public:
     }
 
     //input description for the house
-   string getDescription(){
+   string get_Description(){
         cout << "Input description about the house: ";
         getline(cin, description);
         return description;
@@ -56,7 +56,7 @@ public:
 
 
     //get user review
-    void getUser_review(){
+    void get_User_review(){
         string User_review;
         cout <<"What are your thought about the house: ";
         getline(cin, User_review);
@@ -65,7 +65,7 @@ public:
 
 
     //ask user to rate the house from -10 to 10
-   void getHouse_Rating(){ 
+   void get_House_Rating(){ 
         cout << "Please rate quality of the house from -10(Very Dislikke) - 10(Very like): ";
         cin >> House_Rating;
 
@@ -87,22 +87,17 @@ public:
         return avgHouse_Rating;
     }
 
-
-
-
-
-
     void showHouseInfo1(){ //show info that guest can see(Dont have User review)
-        std::cout << "location = " << location
-                  << "\ndescription = "<< description
-                  << "\nScore required = " << User_review_House_Rating();
+        std::cout << "location = " << location << endl
+                  << "description = "<< description << endl
+                  << "Score required = " << User_review_House_Rating() << endl;
     }
 
     void showHouseInfo2(){ //show more info for member and admin
-        std::cout << "location = " << location
-                  << "\ndescription = "<< description
-                  <<"\nUser review = " <<  review[0]
-                  <<"\nHouse Rating = " << User_review_House_Rating() << endl;
+        std::cout << "location = " << location << endl
+                  << "description = "<< description << endl
+                  <<"User review = " <<  review[0]<< endl //test print out the vector string
+                  <<"House Rating = " << User_review_House_Rating() << endl;
                   
     }
 
@@ -112,12 +107,12 @@ public:
 };
 int main(){
     House house1;
-    house1.getLocation();
-    house1.getDescription();
+    house1.get_Location();
+    house1.get_Description();
     house1.Success();
     house1.Success();
-    house1.getUser_review();
-    house1.getHouse_Rating();
+    house1.get_User_review();
+    house1.get_House_Rating();
 
     house1.showHouseInfo1(); //for guest
     cout << "\n";
