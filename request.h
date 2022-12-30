@@ -1,15 +1,16 @@
 #ifndef _REQUEST_H_
 #define _REQUEST_H_
 
-#include "member.h"
-#include "period.h"
 
+#include "period.h"
+#include "member.h"
+#include <string>
 
 class Request {
-    Member memberWantToOccupy;
     Period periodToOccupy;
+    Member *memberWantToOccupy;
 public:
-    Request (Member &memberVal, Period period);
+    Request(Member *memberVal, Period period);
 
     string toString();
 };

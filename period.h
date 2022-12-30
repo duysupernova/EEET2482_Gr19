@@ -3,6 +3,10 @@
 
 #include <string>
 #include <time.h>
+#include <iostream>
+#include <cstring>
+using std::cout;
+using std::strcat;
 using std::string;
 
 class Period {

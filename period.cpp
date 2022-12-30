@@ -1,18 +1,9 @@
-#include <string>
-#include <time.h>
-#include <iostream>
-#include <cstring>
-#include "period.h"
-using std::cout;
-using std::string;
-using std::strcat;
-
+#include "Period.h"
 /*DEFINITIONS*/
 // Constructor
 Period::Period(tm firstDateVal,tm secDateVal){
 /*
 Automatically adjust which date is start and end
-Is slower
 */
     if(difftime(mktime(&firstDateVal),mktime(&secDateVal))<0){
         this->startDate = firstDateVal;
@@ -26,6 +17,10 @@ Is slower
 Period::Period(int startDay,int startMth, int startY, int endDay, int endMth, int endY){
     this->startDate = toTM(startDay,startMth,startY);
     this->endDate = toTM(endDay,endMth,endY);
+    if(difftime(mktime(&startDate),mktime(&endDate))>0){
+        this->endDate = toTM(startDay,startMth,startY);
+        this->startDate = toTM(endDay,endMth,endY);
+    }
 }
 
 void Period::showInfo(){
@@ -48,8 +43,8 @@ string Period::toString(){
 }
 
 bool Period::isDateInPeriod(tm dateToCheck){                                 // Including start and date
-    return (difftime(mktime(&startDate),mktime(&dateToCheck)) <= 0       // difftime return negative double if the first date is sooner
-            && difftime(mktime(&dateToCheck),mktime(&endDate)) <= 0);    // Is the date between start and date 
+    return (difftime(mktime(&startDate),mktime(&dateToCheck)) <= 0          // difftime return negative double if the first date is sooner
+            && difftime(mktime(&dateToCheck),mktime(&endDate)) <= 0);       // Is the date between start and date 
 }
 bool Period::isOverlapPeriod(Period periodToCheck){                                     // Focus on the false cases ; INCLUDE start end date
     /* For remove occupied period function*/
@@ -74,34 +69,19 @@ tm toTM(int dd, int mm, int yy){
     return timeValue;
 }
 
-int main() {
-    Period period1(11,12,2022,16,12,2022);
-    Period period2(toTM(10,12,2022),toTM(14,12,2022));
-    period1.showInfo();
+// int main() {
+//     Period period1(9,12,2022,9,12,2023);
+//     Period period2(toTM(10,12,2022),toTM(14,12,2022));
+//     period1.showInfo();
 
-    time_t now = time(NULL);
-    struct tm nowlocal = *localtime(&now);
+//     time_t now = time(NULL);
+//     struct tm nowlocal = *localtime(&now);
 
-    cout << period1.isDateInPeriod(nowlocal) << "\n";
-    cout << period2.isOverlapPeriod(period1) << "\n";
+//     cout << period1.isDateInPeriod(nowlocal) << "\n";
+//     cout << period2.isOverlapPeriod(period1) << "\n";
+//     cout << period1.isInsidePeriod(period2) << "\n";
 
-    cout << period1.toString();
-/*    //Test the difftime function
-    time_t now; 
-    struct tm newyear; 
-    struct tm sometime;
-    double seconds;
-    time(&now);  // get current time; same as: now = time(NULL)  
-    newyear = *localtime(&now);
-    sometime = *localtime(&now);
-    newyear.tm_mday = 0;
-    newyear.tm_mon = 0;  
-    newyear.tm_year = 200;
-    sometime.tm_mday = 0;
-    sometime.tm_mon = 1;  
-    sometime.tm_year = 200;
-    seconds = difftime(mktime(&newyear),mktime(&sometime));             
-    printf ("%.f diffrence between 2 times\n", seconds);
-/**/
-    return 0;
-}
+//     cout << period1.toString();
+
+//     return 0;
+// }
