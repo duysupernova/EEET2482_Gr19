@@ -30,7 +30,7 @@ public:
     void get_City();//(fix)
     void get_Location();//(fix)
     void get_Description();//(fix)
-    void get_User_review();//(fix)
+    void get_UserReview();//(fix)
     void House_Rating();//(fix)
     void addRequest(Request requestToAdd);
 
