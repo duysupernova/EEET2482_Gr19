@@ -16,6 +16,8 @@ private:
     string location;
     string description;
     string city;
+    vector<string> review;///(fix)
+    vector<string> request; //(fix)
     int house_Rating;   
     Period periodForOccupy;
     
@@ -28,9 +30,10 @@ public:
             Period period = Period(0,0,0,0,0,0), vector<string> reviews={}, vector<Request> requests={},Member *owner = nullptr); 
     void showHouseInfo();
     void get_City();//(fix)
+    void get_Location();//(fix)
     void get_Description();//(fix)
     void get_User_review();//(fix)
-    void get_Location();//(fix)
+    void House_Rating();//(fix)
     void addRequest(Request requestToAdd);
 
     friend void saveToFile(string fileName, vector<House> &houseArr, string firstDelimiter, string secDelimiter);
