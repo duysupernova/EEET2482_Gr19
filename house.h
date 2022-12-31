@@ -16,8 +16,6 @@ private:
     string location;
     string description;
     string city;
-    vector<string> review;///(fix)
-    vector<string> request; //(fix)
     int house_Rating;   
     Period periodForOccupy;
     
