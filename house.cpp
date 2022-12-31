@@ -45,10 +45,10 @@ void get_Description(){
     }//(fix)
 
 void get_User_review(){
-        string User_review;
+        string user_review;
         cout <<"What are your comment about the house: ";
-        getline(cin, User_review);
-        review.push_back (User_review);
+        getline(cin, user_review);
+        userReviews.push_back (user_review);
             
         cout << "Please rate quality of the house from -10(Very Dislikke) - 10(Very like): ";
         cin >> house_Rating;
