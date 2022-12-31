@@ -5,11 +5,19 @@
 House::House(string locationVal, string descriptVal, string cityVal, int hRating, Period period, vector<string> reviews, vector<Request> requests,Member *ownerVal):
             owner(ownerVal),location(locationVal),description(descriptVal),city(cityVal), house_Rating(hRating), periodForOccupy(period),userReviews(reviews),requestsToOccupy(requests){};
 
-void House::showHouseInfo2(){ //show more info for member and admin
-    std::cout << "location = " << location << endl
-                << "description = "<< description << endl
-                <<"User review = " <<  "A review" << endl //test print out the vector string
-                <<"House Rating = " << house_Rating << endl;
+void House::showHouseInfo(){ //show more info for member and admin
+    cout << "HOUSE location = " << location << endl;
+    cout << "Description = "<< description << endl;
+    cout << "City = " << city << endl;
+    cout << "User review = " << endl; //test print out the vector string
+    for (string review : userReviews){
+        cout << "\t" << review;
+    }
+    cout << endl << "Requests = "<< endl; //test print out the vector string
+    for (Request request : requestsToOccupy){
+        cout << "\t" << request.toString();
+    }
+    cout << "House Rating = " << house_Rating << endl;
                 
 }
 

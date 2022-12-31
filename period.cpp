@@ -73,13 +73,14 @@ tm toTM(int dd, int mm, int yy){
 //     Period period1(9,12,2022,9,12,2023);
 //     Period period2(toTM(10,12,2022),toTM(14,12,2022));
 //     period1.showInfo();
-
+//     period2.showInfo();
 //     time_t now = time(NULL);
 //     struct tm nowlocal = *localtime(&now);
 
 //     cout << period1.isDateInPeriod(nowlocal) << "\n";
-//     cout << period2.isOverlapPeriod(period1) << "\n";
+//     cout << period1.isOverlapPeriod(period2) << "\n";
 //     cout << period1.isInsidePeriod(period2) << "\n";
+//     cout << period2.isInsidePeriod(period1) << "\n";
 
 //     cout << period1.toString();
 

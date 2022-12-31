@@ -8,7 +8,7 @@ Request::Request(Member *memberVal, Period period):
     memberWantToOccupy(memberVal),periodToOccupy(period){};
 
 string Request::toString(){
-    return memberWantToOccupy->getUserName() + "&&" + periodToOccupy.toString();
+    return memberWantToOccupy->getUserName() + "*)(*" + periodToOccupy.toString();
 }
 
 // int main() {
