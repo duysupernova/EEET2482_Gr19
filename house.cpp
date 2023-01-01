@@ -20,6 +20,55 @@ void House::showHouseInfo(){ //show more info for member and admin
     cout << "House Rating = " << house_Rating << endl;
                 
 }
+void get_Location(){
+        cout <<"Enter house location: ";
+        getline(cin,location);
+
+        while(location == ""){ //error check
+            cout <<"You must not leave location empty, please enter house location: ";
+            getline(cin,location);
+        }
+    }//(fix)
+
+void get_Location(){
+    cout << "Enter city(Ha Noi, Hue, Sai Gon): ";
+    getline(cin, city);
+    while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon")){ //limit the city choice
+         cout << "Wrong input city (Ha Noi, Hue, Sai Gon), Please choose a city: ";
+         getline(cin, city);
+         }
+    }//(fix)
+
+void get_Description(){
+        cout << "Input description about the house: ";
+        getline(cin, description);
+    }//(fix)
+
+void get_User_review(){
+        string user_review;
+        cout <<"What are your comment about the house: ";
+        getline(cin, user_review);
+        userReviews.push_back (user_review);
+            
+        cout << "Please rate quality of the house from -10(Very Dislikke) - 10(Very like): ";
+        cin >> house_Rating;
+
+        while (house_Rating < -10 || house_Rating > 10){ //Error check if user input wrong scale value
+            cout << "Error!, please rate the house from -10(Very Dislike) - 10(Very like): ";
+            cin >> house_Rating;
+        }
+    } //(fix)
+
+void House_Rating(){
+        double avgHouse_Rating = 0;
+        int Total_HouseRating = 0; //sum of all user rating score
+        
+        Total_HouseRating += house_Rating; //Get Total of house rating score
+        avgHouse_Rating = (double)Total_HouseRating / (double)number_of_user; //get average rating score
+    }//(fix)
+
+
+
 
 void House::addRequest(Request requestToAdd){
     requestsToOccupy.push_back(requestToAdd);
