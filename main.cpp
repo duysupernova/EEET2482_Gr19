@@ -9,6 +9,8 @@
 #include "house.h"
 #include "member.h"
 #include "request.h"
+#include "menu.h"
+
 
 
 void saveToFile(string fileName, vector<House> &houseVec, string firstDelimiter, string secDelimiter) {
@@ -46,7 +48,7 @@ int main() {
     vector<Member> memberVec = {};
     vector<House> houseVec = {};
     vector<Request> requestVec = {};
-
+    Menu menu;
     memberVec.push_back(Member("Nguyen Huu Khang","metalbox","password",69988139));
     memberVec.push_back(Member("Khanh Lin","lnnnnnn","password2",12324333));
     memberVec[0].showInfo();    
@@ -54,7 +56,9 @@ int main() {
     houseVec.push_back(House("46 Le Van Ben", "Beautiful garden","Ho Chi Minh",100,Period(1,1,2023,21,1,2023),{"Clean", "Fresh Air", "Cheap"},{Request(&memberVec[1],Period(11,1,2022,12,2,2022))},&khang));
     houseVec[0].showHouseInfo();
 
-    
+    khang.showInfo();
+    menu.registerAccount(memberVec);
+
     saveToFile("database.csv",houseVec, "," , "|||");
 
     return 0;
