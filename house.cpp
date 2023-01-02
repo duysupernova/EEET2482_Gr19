@@ -17,7 +17,7 @@ void House::showHouseInfo(){ //show more info for member and admin
     for (Request request : requestsToOccupy){
         cout << "\t" << request.toString();
     }
-    cout << "House Rating = " << house_Rating << endl;
+    cout << "House Rating = " << getHouseRating() << endl;
                 
 }
 
@@ -43,37 +43,34 @@ string getCity(){
             return city;
     }//(fix)
 
-string description getDescription(){
+    string getDescription(){
         cout << "Input description about the house: ";
         getline(cin, description);
-        if(description ==""){
-           cout << "you left the description empty" << endl;
+        while(description ==""){           
+           cout << "the description is empty, please enter description about the house: ";
+           getline(cin, description);       
         }
             return description;
     }//(fix)
 
-void getUserReview(){
-        string user_review;
+    void getUserReview(){
+        string userReview;
         cout <<"What are your comment about the house: ";
-        getline(cin, user_review);
-        userReviews.push_back (user_review);
-            
-        cout << "Please rate quality of the house from -10(Very Dislikke) - 10(Very like): ";
-        cin >> house_Rating;
-
-        while (house_Rating < -10 || house_Rating > 10){ //Error check if user input wrong scale value
-            cout << "Error!, please rate the house from -10(Very Dislike) - 10(Very like): ";
-            cin >> house_Rating;
-        }
+        getline(cin, userReview);
+        userReviews.push_back (userReview);
     } //(fix)
 
-void houseRating(){
-        double avgHouse_Rating = 0;
-        int Total_HouseRating = 0; //sum of all user rating score
-        
-        Total_HouseRating += house_Rating; //Get Total of house rating score
-        avgHouse_Rating = (double)Total_HouseRating / (double)number_of_user; //get average rating score
-    }//(fix)
+    double getHouseRating(){
+        cout << "Please rate quality of the house from -10(Very Dislikke) to 10(Very like): ";
+        cin >> houseRating;
+        while (houseRating < -10 || houseRating > 10){ //Error check if user input wrong scale value
+            cout << "Error!, please rate the quality of house from -10(Very Dislike) to 10(Very like): ";
+            cin >> houseRating;
+        }
+        totalHouseRating += houseRating;
+        double avgHouseRating =  totalHouseRating / requestsToOccupy().size;
+        return avgHouseRating;
+    } 
 
 
 
