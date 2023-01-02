@@ -21,7 +21,7 @@ void House::showHouseInfo(){ //show more info for member and admin
                 
 }
 
-void get_Location(){
+void getLocation(){
     cout << "Enter city(Ha Noi, Hue, Sai Gon): ";
     getline(cin, city);
     while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon") && (city == "")){ //limit the city choice
@@ -30,12 +30,12 @@ void get_Location(){
          }
     }//(fix)
 
-void get_Description(){
+void getDescription(){
         cout << "Input description about the house: ";
         getline(cin, description);
     }//(fix)
 
-void get_User_review(){
+void getUser_review(){
         string user_review;
         cout <<"What are your comment about the house: ";
         getline(cin, user_review);
@@ -50,7 +50,7 @@ void get_User_review(){
         }
     } //(fix)
 
-void House_Rating(){
+void houseRating(){
         double avgHouse_Rating = 0;
         int Total_HouseRating = 0; //sum of all user rating score
         
