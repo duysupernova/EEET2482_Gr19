@@ -83,6 +83,7 @@ void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &r
         getline(myfile,temptNumRatings,fDelimit);
 
         memberVect.push_back(Member(temptFName,temptUName,temptPass,stoi(temptPhone),stoi(temptCredPoint),stod(temptOccupierRat),stoi(temptNumRatings)));
+        cout << &memberVect[indexOfHouse] << "\n";                  // DEBUGGGINGNGG
 
         // HOUSE Time
         getline(myfile,temptLocation,fDelimit);
@@ -98,15 +99,15 @@ void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &r
         getline(myfile,em,'/');
         getline(myfile,ey,fDelimit);
         // Start loading into object
+        cout << &memberVect[indexOfHouse] << "\n";                  // DEBUGGGINGNGG
         if(temptLocation == ""){
-            houseVect.push_back(House(&memberVect[indexOfHouse]));
+            houseVect.push_back(House());
             cout << "Empty house loaded into vector!\n";
         } else {
-            houseVect.push_back(House(&memberVect[indexOfHouse],temptLocation,temptDescript,temptCity,stod(temptHRating),stoi(temptHNumRatings),
+            houseVect.push_back(House(temptLocation,temptDescript,temptCity,stod(temptHRating),stoi(temptHNumRatings),
                                         Period(stoi(sd),stoi(sm),stoi(sy),stoi(ed),stoi(em),stoi(ey))));
             cout << "A house loaded into vector\n";
         }    
-
         // Loading REVIEWS into object
         getline(myfile,temptReview,fDelimit);
         while (temptReview.find('\n')){                      // Isnt at the end of the line
@@ -116,15 +117,22 @@ void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &r
         }
         temptFName = temptReview.substr(1);          // The temptReview acutally gets the string below which belongs to another user.
         
+
+
         indexOfHouse++;
 
+    }
+    // Loading Owners into house
+    for (int i = 0; i < houseVect.size(); i++){
+        houseVect[i].setOwner(&memberVect[i]);
     }
 
     // LOADING THE REQUESTS TIME
     string reqUserName;
     indexOfHouse = 0;
     cout << "Start loading requests\n";
-    
+
+
     myfile.ignore(1,'\n');
     while(!myfile.eof()){
         getline(myfile,reqUserName,fDelimit);
@@ -184,10 +192,15 @@ int main() {
  
     
     loadFromFile("database.csv",memberVec,requestVec,houseVec, '~' , '|');
-    cout << "Size of house vector :" << houseVec.size();
-    houseVec[0].showHouseInfo();
+    cout << "Size of house vector :" << houseVec.size() << "\n";
+
+
+    cout << &memberVec[0] << "\n";
+    cout << houseVec[0].getOwner() << "\n";
+    memberVec[0].showInfo();
 
     houseVec[0].getOwner()->showInfo();
+    
     // houseVec[0].getOwner()->showInfo();
     saveToFile("database.csv",houseVec,'~' , '|');
     return 0;

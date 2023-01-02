@@ -5,22 +5,22 @@ Member::Member(string fullNameVal, string userNameVal, string passwordVal,  int 
             fullName(fullNameVal), userName(userNameVal), password(passwordVal), phoneNumber(phoneVal),creditPoint(creditPointVal), occupierRatingScore(occupierRatingScoreVal),numOfRatings(numOfRatingVal) {};
 
 
-string &Member::getFullName(){
+string Member::getFullName(){
     return this->fullName;
 }
-string &Member::getUserName(){
+string Member::getUserName(){
     return this->userName;
 };
-string &Member::getPassword(){
+string Member::getPassword(){
     return this->password;
 };
-int &Member::getPhoneNumber(){
+int Member::getPhoneNumber(){
     return this->phoneNumber;
 };
-int &Member::getCreditPoint(){
+int Member::getCreditPoint(){
     return this->creditPoint;
 };
-double &Member::getOccupierScore(){
+double Member::getOccupierScore(){
     return this->occupierRatingScore;
 }
 

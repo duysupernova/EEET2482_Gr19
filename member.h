@@ -21,6 +21,7 @@ using std::cout;
 //     void display_house();
 // };
 class House;
+class Request;
 class Member {
 private:
     string fullName;
@@ -34,12 +35,12 @@ public:
     // Constructor for object member
     Member(string fullNameVal = "", string userNameVal = "", string passwordVal = "",  int phoneVal = 0, int creditPointVal = 500, double occupierRatingScoreVal = 0, int numOfRatingVal = 0);
     // GETTERS
-    string &getFullName();
-    string &getUserName();
-    string &getPassword();
-    int &getPhoneNumber();
-    int &getCreditPoint();
-    double &getOccupierScore();
+    string getFullName();
+    string getUserName();
+    string getPassword();
+    int getPhoneNumber();
+    int getCreditPoint();
+    double getOccupierScore();
 
     void showInfo();
     /* 
@@ -53,6 +54,7 @@ public:
 
     friend class House;
     friend void saveToFile(string fileName, vector<House> &houseVec, char firstDelimiter, char secDelimiter);
+    friend void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &requestVect,  vector<House> &houseVect, char fDelimit, char sDelimit);
 };
 
 

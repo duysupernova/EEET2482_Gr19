@@ -24,9 +24,10 @@ private:
     Member* owner;
 
 public:
-    House(Member *owner = nullptr, string locationVal="", string descriptVal="", string cityVal="", double hRating=0, int numRating=0,
-            Period period = Period(1,1,1,1,1,1), vector<string> reviews={}, vector<Request> requests={}); 
+    House(string locationVal="", string descriptVal="", string cityVal="", double hRating=0, int numRating=0,
+            Period period = Period(1,1,1,1,1,1), vector<string> reviews={}, vector<Request> requests={}, Member* owner = nullptr); 
     Member *getOwner();
+    void setOwner(Member* member);
     void showHouseInfo();
     
     void addRequest(Request requestToAdd);

@@ -2,7 +2,7 @@
 
 
 
-House::House(Member *ownerVal,string locationVal, string descriptVal, string cityVal, double hRating, int numRatings, Period period, vector<string> reviews, vector<Request> requests):
+House::House(string locationVal, string descriptVal, string cityVal, double hRating, int numRatings, Period period, vector<string> reviews, vector<Request> requests,Member* ownerVal):
             location(locationVal),description(descriptVal),city(cityVal), house_Rating(hRating), numOfRatings(numRatings),periodForOccupy(period),userReviews(reviews),requestsToOccupy(requests){
                 this->owner = ownerVal;
             };
@@ -10,6 +10,9 @@ House::House(Member *ownerVal,string locationVal, string descriptVal, string cit
 Member *House::getOwner(){
     return owner;
 };
+void House::setOwner(Member* member){
+    this->owner = member;
+}
 
 
 void House::showHouseInfo(){ //show more info for member and admin
