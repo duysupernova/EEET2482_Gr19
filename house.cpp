@@ -19,7 +19,7 @@ void House::showHouseInfo(){ //show more info for member and admin
     cout << "House Rating = " << houseRating << endl;
                 
 }
-void House::getLocation(){
+void House::getLocation(){ //owner input location of the house
         cout <<"Enter house location: ";
         getline(cin,location);
 
@@ -28,7 +28,7 @@ void House::getLocation(){
             getline(cin,location);
         }
     }//(fix)
-void House::getCity(){
+void House::getCity(){//owner input city of the house
     cout << "Enter city(Ha Noi, Hue, Sai Gon): ";
     getline(cin, city);
     while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon") && (city == "")){ //limit the city choice
@@ -37,7 +37,7 @@ void House::getCity(){
          }
     }//(fix)
 
-void House::getDescription(){
+void House::getDescription(){//owner input description about the house
     cout << "Input description about the house: ";
     getline(cin, description);
     while(description ==""){
@@ -46,14 +46,14 @@ void House::getDescription(){
     }
 }//(fix)
 
-void House::getUserReview(){
+void House::getUserReview(){//occupier input review about the house
         string userReview;
         cout <<"What are your comment about the house: ";
         getline(cin, userReview);
         userReviews.push_back (userReview);
     } //(fix)
 
-void House::getHouseRating(int temp){
+void House::getHouseRating(int temp){//occupier rate the score of the house
         cout << "Please rate quality of the house from -10(Very Dislikke) to 10(Very like): ";
         cin >> temp;
         while (temp < -10 || temp > 10){ //Error check if user input wrong scale value
@@ -68,7 +68,7 @@ void House::addRequest(Request requestToAdd){
     requestsToOccupy.push_back(requestToAdd);
 }
 
-void House::checkIfQualify(Member member){
+void House::checkIfQualify(Member member){//check quality of the occupier
     if(consumingPointPerDay < member.getCreditPoint()) {
         cout << "You dont have enough point to rent this house!";
     } 
