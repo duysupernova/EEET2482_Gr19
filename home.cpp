@@ -1,126 +1,118 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
+#include "House.h"
+#include "member.h"
 
-using std::string;
-using std::cin;
-using std::cout;
-using std::endl;
+House::House(string locationVal, string descriptVal, string cityVal, int hRating, Period period, vector<string> reviews, vector<Request> requests,Member *ownerVal):
+            owner(ownerVal),location(locationVal),description(descriptVal),city(cityVal), houseRating(hRating), periodForOccupy(period),userReviews(reviews),requestsToOccupy(requests){};
 
-class House{
-private:
-//some basic infomation of the house
-    string location;
-    string description;
-//For user review the house
-    int House_Rating = 0;
-    int number_of_user = 0; //total  user
-
-    //std::vector<*Member> request;
-    std::vector<string> review; 
-
-// //For Owner review Occupier
-//     int Score_For_Renter;
-//     vector<string> review_Owner;
-//     int Owners;  //Total of Owners
-//     int Total_of_ownerscore;
-//     int avgScore_For_Renter;
-
-
-public:
-    //select city
-    string get_Location(){
-        cout << "Enter house location(Ha Noi, Hue, Sai Gon): ";
-        getline(cin, location);
-        while ((location != "Ha Noi") && (location != "Hue") && (location != "Sai Gon")){ //limit the city choice
-            cout << "Wrong input city (Ha Noi, Hue, Sai Gon), Please choose a city: ";
-            getline(cin, location);
-        }
-        return location;
+void House::showHouseInfo(){ //show more info for member and admin
+    cout << "HOUSE location = " << location << endl;
+    cout << "Description = "<< description << endl;
+    cout << "City = " << city << endl;
+    cout << "User review = " << endl; //test print out the vector string
+    for (string review : userReviews){
+        cout << "\t" << review;
     }
+    cout << endl << "Requests = "<< endl; //test print out the vector string
+    for (Request request : requestsToOccupy){
+        cout << "\t" << request.toString();
+    }
+    cout << "House Rating = " << houseRating << endl;
+                
+}
+void House::getLocation(){
+        cout <<"Enter house location: ";
+        getline(cin,location);
 
-    //input description for the house
-   string get_Description(){
-        cout << "Input description about the house: ";
+        while(location == ""){ //error check
+            cout <<"You must not leave location empty, please enter house location: ";
+            getline(cin,location);
+        }
+    }//(fix)
+void House::getCity(){
+    cout << "Enter city(Ha Noi, Hue, Sai Gon): ";
+    getline(cin, city);
+    while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon") && (city == "")){ //limit the city choice
+         cout << "Wrong input city (Ha Noi, Hue, Sai Gon), Please choose a city: ";
+         getline(cin, city);
+         }
+    }//(fix)
+
+void House::getDescription(){
+    cout << "Input description about the house: ";
+    getline(cin, description);
+    while(description ==""){
+        cout << "The description is empty, please enter description about the house: ";
         getline(cin, description);
-        return description;
     }
+}//(fix)
 
-    //for everytime Rentors rent succesfully the same house
-    void Success(){
-        cout << "Congrat, you have successfully rented this house"; << endl;
-        number_of_user++;       
-    }
+void House::getUserReview(){
+        string userReview;
+        cout <<"What are your comment about the house: ";
+        getline(cin, userReview);
+        userReviews.push_back (userReview);
+    } //(fix)
 
-
-
-    //get user review
-    void get_User_review(){
-        string User_review;
-        cout <<"What are your thought about the house: ";
-        getline(cin, User_review);
-        review.push_back (User_review);
-    }
-
-
-    //ask user to rate the house from -10 to 10
-   void get_House_Rating(){ 
-        cout << "Please rate quality of the house from -10(Very Dislikke) - 10(Very like): ";
-        cin >> House_Rating;
-
-        while (House_Rating < -10 || House_Rating > 10){ //Error check if user input wrong scale value
-            cout << "Error!, please rate the house from -10(Very Dislike) - 10(Very like): ";
-            cin >> House_Rating;
+void House::getHouseRating(int temp){
+        cout << "Please rate quality of the house from -10(Very Dislikke) to 10(Very like): ";
+        cin >> temp;
+        while (temp < -10 || temp > 10){ //Error check if user input wrong scale value
+            cout << "Error!, please rate the quality of house from -10(Very Dislike) to 10(Very like): ";
+            cin >> temp;
+    
         }
+        houseRating = ((houseRating * requestsToOccupy.size())+ temp)/ (requestsToOccupy.size() +1);
+    }//(fix)
 
+void House::addRequest(Request requestToAdd){
+    requestsToOccupy.push_back(requestToAdd);
+}
+
+void House::checkIfQualify(Member member){
+    if(consumingPointPerDay < member.getCreditPoint()) {
+        cout << "You dont have enough point to rent this house!";
+    } 
+    if (minimumOcupierRating < member.getOccupierScore()) {
+        cout << "You dont have enough point to rent this house!";
     }
-
-
-        //calculate the house rating score
-    int User_review_House_Rating(){
-        int avgHouse_Rating = 0;
-        int Total_HouseRating = 0; //sum of all user rating score
-        
-        Total_HouseRating += House_Rating; //Get Total of house rating score
-        avgHouse_Rating = Total_HouseRating / number_of_user; //get average rating score
-        return avgHouse_Rating;
+    else {
+        cout << "You have successfully rent this house!";
     }
+}
 
-    void showHouseInfo1(){ //show info that guest can see(Dont have User review)
-        std::cout << "location = " << location << endl
-                  << "description = "<< description << endl
-                  << "Score required = " << User_review_House_Rating() << endl;
-    }
+void House::listHouse(Member member){
+    int sDate, sMonth, sYear, eDate, eMonth, eYear;
+    cout << "Please enter start day: ";
+    cin >> sDate;
+    cout << "Please enter month: ";
+    cin >> sMonth;
+    cout << "Please enter year: ";
+    cin >> sYear;
+    cout << "Please enter end day: ";
+    cin >> eDate;
+    cout << "Please enter month: ";
+    cin >> eMonth;
+    cout << "Please enter year: ";
+    cin  >> eYear;
+    periodForOccupy = Period(sDate, sMonth, sYear, eDate, eMonth, eYear);
+    cout << "Please enter a consuming point per day: ";
+    cin >> consumingPointPerDay;
+    cout << "Please enter a minimum required occupier rating: ";
+    cin >> minimumOcupierRating;
+    checkIfQualify(member);
+}
 
-    void showHouseInfo2(){ //show more info for member and admin
-        std::cout << "location = " << location << endl
-                  << "description = "<< description << endl
-                  <<"User review = " <<  review[0]<< endl //test print out the vector string
-                  <<"House Rating = " << User_review_House_Rating() << endl;
-                  
-    }
-
-    House(){} //Default constructor
+void House::unlistHouse(){ 
+    periodForOccupy = Period(1,1,1,2,1,1);
+    cout << "Successful unlist house!";
+}
 
 
-};
+
 int main(){
-    House house1;
-    house1.get_Location();
-    house1.get_Description();
-    house1.Success();
-    house1.Success();
-    house1.get_User_review();
-    house1.get_House_Rating();
-
-    house1.showHouseInfo1(); //for guest
-    cout << "\n";
-    house1.showHouseInfo2(); //for member and admin
-
-
-
-
+    Member m1("Nguyen Huu Khang","metalbox","password",12344442);
+    m1.showInfo();
+    House h1("46 Le Van Ben", "Beautiful garden","Ho Chi Minh",100,Period(1,1,2023,21,1,2023),{"Clean","Fresh Air", "Cheap"},{},&m1);
 
     return 0;
 }
