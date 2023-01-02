@@ -20,20 +20,11 @@ void House::showHouseInfo(){ //show more info for member and admin
     cout << "House Rating = " << house_Rating << endl;
                 
 }
-void get_Location(){
-        cout <<"Enter house location: ";
-        getline(cin,location);
-
-        while(location == ""){ //error check
-            cout <<"You must not leave location empty, please enter house location: ";
-            getline(cin,location);
-        }
-    }//(fix)
 
 void get_Location(){
     cout << "Enter city(Ha Noi, Hue, Sai Gon): ";
     getline(cin, city);
-    while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon")){ //limit the city choice
+    while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon") && (city == "")){ //limit the city choice
          cout << "Wrong input city (Ha Noi, Hue, Sai Gon), Please choose a city: ";
          getline(cin, city);
          }
