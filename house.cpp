@@ -44,6 +44,8 @@ void getCity(){
 void getDescription(){
         cout << "Input description about the house: ";
         getline(cin, description);
+        if(description ==""){
+           cout << "you left the description empty" << endl;
     }//(fix)
 
 void getUser_review(){
