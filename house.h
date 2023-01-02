@@ -14,12 +14,13 @@ class House{
 private:
     Member *owner;
     string location;
-    string description;
     string city;
-    int house_Rating;   
+    string description;
+//For user review the house
+    double houseRating = 0;
+    double totalHouseRating = 0 ;
     Period periodForOccupy;
     
-
     vector<string> userReviews;
     vector<Request> requestsToOccupy;
 
