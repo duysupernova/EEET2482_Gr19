@@ -21,7 +21,7 @@ void House::showHouseInfo(){ //show more info for member and admin
                 
 }
 
-void getLocation(){
+string getLocation(){
         cout <<"Enter house location: ";
         getline(cin,location);
 
@@ -29,26 +29,30 @@ void getLocation(){
             cout <<"You must not leave location empty, please enter house location: ";
             getline(cin,location);
         }
+            return location;
     }
 
 
-void getCity(){
+string getCity(){
     cout << "Enter city(Ha Noi, Hue, Sai Gon): ";
     getline(cin, city);
     while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon") && (city == "")){ //limit the city choice
          cout << "Wrong input city (Ha Noi, Hue, Sai Gon), Please choose a city: ";
          getline(cin, city);
          }
+            return city;
     }//(fix)
 
-void getDescription(){
+string description getDescription(){
         cout << "Input description about the house: ";
         getline(cin, description);
         if(description ==""){
            cout << "you left the description empty" << endl;
+        }
+            return description;
     }//(fix)
 
-void getUser_review(){
+void getUserReview(){
         string user_review;
         cout <<"What are your comment about the house: ";
         getline(cin, user_review);
