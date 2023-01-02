@@ -30,10 +30,8 @@ public:
     int &getCreditPoint();
     double &getOccupierScore();
     int &getNumOfOperating();
-
+    void calOcuNewScore(int temp);
     void showInfo();
-    void registerAccount(vector<Member> &memberVec);
-    void checkLogin(vector<Member> &memberVec);
     void requestToOccupy(string houseId,int sd,int sm,int sy,int ed, int em,int ey);
     friend void saveToFile(string fileName, vector<House> &houseArr, string firstDelimiter, string secDelimiter);
 };

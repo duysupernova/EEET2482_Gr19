@@ -9,6 +9,8 @@
 using std::vector;
 using std::string;
 using std::endl;
+using std::cout;
+using std::cin;
 
 class House{
 private:
@@ -18,8 +20,8 @@ private:
     string city;
     int house_Rating;   
     Period periodForOccupy;
-    
-
+    int consumingPointPerDay;
+    double minimumOcupierRating;
     vector<string> userReviews;
     vector<Request> requestsToOccupy;
 
@@ -33,7 +35,9 @@ public:
     void getUserReview();//(fix)
     void houseRating();//(fix)
     void addRequest(Request requestToAdd);
-
+    void checkIfQualify(Member member);
+    void listHouse(Member member);
+    void unlistHouse(); 
     friend void saveToFile(string fileName, vector<House> &houseArr, string firstDelimiter, string secDelimiter);
 };
 

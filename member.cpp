@@ -29,6 +29,16 @@ int &Member::getNumOfOperating(){
     return this->numOfOperating;
 }
 
+void Member::calOcuNewScore(int temp){
+    cout << "Please rate the member from -10(Very Dislikke) to 10(Very like): ";
+    cin >> temp;
+    while (temp < -10 || temp > 10)
+    {
+        cout << "Please enter a number: ";
+        cin >> temp;
+    }
+    occupierRatingScore = ((occupierRatingScore * numOfOperating) + temp) / (numOfOperating + 1);
+}
 
 void Member::showInfo(){
     cout << "\n";
@@ -39,6 +49,3 @@ void Member::showInfo(){
     cout << "credit point= " << creditPoint << "\n";
     cout << "Occupation score= " << occupierRatingScore << "\n";
 }
-
-
-
