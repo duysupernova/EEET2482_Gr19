@@ -2,20 +2,27 @@
 
 
 
-House::House(string locationVal, string descriptVal, string cityVal, int hRating, Period period, vector<string> reviews, vector<Request> requests,Member *ownerVal):
-            owner(ownerVal),location(locationVal),description(descriptVal),city(cityVal), house_Rating(hRating), periodForOccupy(period),userReviews(reviews),requestsToOccupy(requests){};
+House::House(Member *ownerVal,string locationVal, string descriptVal, string cityVal, double hRating, int numRatings, Period period, vector<string> reviews, vector<Request> requests):
+            location(locationVal),description(descriptVal),city(cityVal), house_Rating(hRating), numOfRatings(numRatings),periodForOccupy(period),userReviews(reviews),requestsToOccupy(requests){
+                this->owner = ownerVal;
+            };
+
+Member *House::getOwner(){
+    return owner;
+};
+
 
 void House::showHouseInfo(){ //show more info for member and admin
-    cout << "HOUSE location = " << location << endl;
+    cout << endl << "HOUSE location = " << location << endl;
     cout << "Description = "<< description << endl;
     cout << "City = " << city << endl;
-    cout << "User review = " << endl; //test print out the vector string
+    cout << "User review(s) = " << endl; //test print out the vector string
     for (string review : userReviews){
-        cout << "\t" << review;
+        cout << "\t" << review << "\n";
     }
-    cout << endl << "Requests = "<< endl; //test print out the vector string
+    cout << "Requests = "<< endl; //test print out the vector string
     for (Request request : requestsToOccupy){
-        cout << "\t" << request.toString();
+        cout << "\t" << request.toString() << "\n";
     }
     cout << "House Rating = " << house_Rating << endl;
                 
@@ -24,6 +31,13 @@ void House::showHouseInfo(){ //show more info for member and admin
 void House::addRequest(Request requestToAdd){
     requestsToOccupy.push_back(requestToAdd);
 }
+void House::addReview(Member &member, string reviewString){
+    userReviews.push_back(member.userName + ": " + reviewString);
+}
+
+
+
+
 
 
 // int main(){

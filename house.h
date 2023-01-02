@@ -12,25 +12,28 @@ using std::endl;
 
 class House{
 private:
-    Member *owner;
     string location;
     string description;
     string city;
-    int house_Rating;   
+    double house_Rating;   
+    int numOfRatings;
     Period periodForOccupy;
-    
 
     vector<string> userReviews;
     vector<Request> requestsToOccupy;
+    Member* owner;
 
 public:
-    House(string locationVal="", string descriptVal="", string cityVal="", int hRating=0, 
-            Period period = Period(0,0,0,0,0,0), vector<string> reviews={}, vector<Request> requests={},Member *owner = nullptr); 
+    House(Member *owner = nullptr, string locationVal="", string descriptVal="", string cityVal="", double hRating=0, int numRating=0,
+            Period period = Period(1,1,1,1,1,1), vector<string> reviews={}, vector<Request> requests={}); 
+    Member *getOwner();
     void showHouseInfo();
     
     void addRequest(Request requestToAdd);
+    void addReview(Member &member, string reviewString);
+    friend void saveToFile(string fileName, vector<House> &houseArr, char firstDelimiter, char secDelimiter);
+    friend void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &requestVect,  vector<House> &houseVect, char fDelimit, char sDelimit);
 
-    friend void saveToFile(string fileName, vector<House> &houseArr, string firstDelimiter, string secDelimiter);
 };
 
 #endif

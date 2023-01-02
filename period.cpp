@@ -35,7 +35,7 @@ void Period::showInfo(){
 string Period::toString(){
     char* startInfo = new char[9];
     char* endInfo = new char[9];
-    char timeFormat[20] =  "%d/%M/%Y";
+    char timeFormat[20] =  "%d/%m/%Y";
     strftime(startInfo,50,timeFormat,&startDate);
     strftime(endInfo,50,timeFormat,&endDate);
     char divide[] = "/";
@@ -70,8 +70,8 @@ tm toTM(int dd, int mm, int yy){
 }
 
 // int main() {
-//     Period period1(9,12,2022,9,12,2023);
-//     Period period2(toTM(10,12,2022),toTM(14,12,2022));
+//     Period period1(9,2,2022,9,3,2023);
+//     Period period2(toTM(10,2,2022),toTM(14,3,2022));
 //     period1.showInfo();
 //     period2.showInfo();
 //     time_t now = time(NULL);
