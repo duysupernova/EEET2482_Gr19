@@ -17,6 +17,7 @@ private:
     string city;
     double house_Rating;   
     int numOfRatings;
+    int minOccupierRating;
     Period periodForOccupy;
 
     vector<string> userReviews;
@@ -24,8 +25,8 @@ private:
     Member* owner;
 
 public:
-    House(string locationVal="", string descriptVal="", string cityVal="", double hRating=0, int numRating=0,
-            Period period = Period(1,1,1,1,1,1), vector<string> reviews={}, vector<Request> requests={}, Member* owner = nullptr); 
+    House(Member* owner = nullptr,string locationVal="", string descriptVal="", string cityVal="", double hRating=0, int numRating=0,int minOccupierVal = 0,
+            Period period = Period(1,1,1,1,1,1), vector<string> reviews={}, vector<Request> requests={}); 
     Member *getOwner();
     void setOwner(Member* member);
     void showHouseInfo();

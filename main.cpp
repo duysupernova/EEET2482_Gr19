@@ -34,6 +34,7 @@ void saveToFile(string fileName, vector<House> &houseVec, char firstDelimiter, c
         myfile << house.city<<firstDelimiter;
         myfile << house.house_Rating<<firstDelimiter; 
         myfile << house.numOfRatings<<firstDelimiter;
+        myfile << house.minOccupierRating<<firstDelimiter;
         myfile << house.periodForOccupy.toString() << firstDelimiter;
         for (string review : house.userReviews){
             myfile << review << firstDelimiter;
@@ -63,7 +64,7 @@ void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &r
     int indexOfHouse = 0;
 
     string temptFName, temptUName, temptPass, temptPhone, temptCredPoint, temptOccupierRat, temptNumRatings;
-    string temptLocation, temptDescript, temptCity, temptHRating, temptHNumRatings;   
+    string temptLocation, temptDescript, temptCity, temptHRating, temptHNumRatings, temptMinOccuRating;   
     string sd,sm,sy,ed,em,ey;
     string temptReview;
 
@@ -81,7 +82,6 @@ void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &r
         getline(myfile,temptCredPoint,fDelimit);
         getline(myfile,temptOccupierRat,fDelimit);
         getline(myfile,temptNumRatings,fDelimit);
-
         memberVect.push_back(Member(temptFName,temptUName,temptPass,stoi(temptPhone),stoi(temptCredPoint),stod(temptOccupierRat),stoi(temptNumRatings)));
         cout << &memberVect[indexOfHouse] << "\n";                  // DEBUGGGINGNGG
 
@@ -91,6 +91,7 @@ void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &r
         getline(myfile,temptCity,fDelimit);
         getline(myfile,temptHRating,fDelimit);
         getline(myfile,temptHNumRatings,fDelimit);
+        getline(myfile,temptMinOccuRating,fDelimit);
         // get period time
         getline(myfile,sd,'/');
         getline(myfile,sm,'/');
@@ -104,7 +105,7 @@ void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &r
             houseVect.push_back(House());
             cout << "Empty house loaded into vector!\n";
         } else {
-            houseVect.push_back(House(temptLocation,temptDescript,temptCity,stod(temptHRating),stoi(temptHNumRatings),
+            houseVect.push_back(House(nullptr,temptLocation,temptDescript,temptCity,stod(temptHRating),stoi(temptHNumRatings),stoi(temptMinOccuRating),
                                         Period(stoi(sd),stoi(sm),stoi(sy),stoi(ed),stoi(em),stoi(ey))));
             cout << "A house loaded into vector\n";
         }    
@@ -177,18 +178,18 @@ int main() {
     // memberVec.push_back(Member("Khoi","david","password3",763332267,621,9,2));
     // Member &khang = memberVec[0];
     // Member &linh = memberVec[1];
-    // houseVec.push_back(House(&memberVec[0],"46 Le Van Ben", "Beautiful garden","Ho Chi Minh",100,1,Period(1,1,2023,21,1,2023)));
+    // houseVec.push_back(House(&memberVec[0],"46 Le Van Ben", "Beautiful garden","Ho Chi Minh",100,1,0,Period(1,1,2023,21,1,2023)));
     // houseVec.push_back(House(&memberVec[1]));
-    // houseVec.push_back(House(&memberVec[2],"16 Mai Van Vinh","Strong and Healthy","Hannoi",7.7,12,Period(1,1,1,1,1,1)));
+    // houseVec.push_back(House(&memberVec[2],"16 Mai Van Vinh","Strong and Healthy","Hannoi",7.7,12,0,Period(1,1,1,1,1,1)));
 
 
     // houseVec[0].addReview(linh,"Clean as f, gonna go back again");
     // houseVec[2].addReview(khang,"Feels good man");
     // houseVec[2].addReview(linh,"Lack technology");
 
-    // houseVec[0].addRequest(Request(&memberVec[1],Period(11,1,2023,15,1,2023)));
-    // houseVec[0].addRequest(Request(&memberVec[2],Period(19,12,2003,12,3,2004)));
-    // houseVec[2].addRequest(Request(&memberVec[0],Period(15,2,2013,12,3,2014)));
+    // houseVec[0].addRequest(Request(memberVec[1].getUserName(),Period(11,1,2023,15,1,2023)));
+    // houseVec[0].addRequest(Request(memberVec[2].getUserName(),Period(19,12,2003,12,3,2004)));
+    // houseVec[2].addRequest(Request(memberVec[0].getUserName(),Period(15,2,2013,12,3,2014)));
  
     
     loadFromFile("database.csv",memberVec,requestVec,houseVec, '~' , '|');
