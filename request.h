@@ -8,9 +8,9 @@
 
 class Request {
     Period periodToOccupy;
-    Member *memberWantToOccupy;
+    string memberWantToOccupy;
 public:
-    Request(Member *memberVal, Period period);
+    Request(string memberVal, Period period);
 
     string toString();
 };

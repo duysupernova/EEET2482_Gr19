@@ -152,9 +152,9 @@ void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &r
         getline(myfile,em,'/');
         getline(myfile,ey,fDelimit);
 
-        for (int i = 0; i < houseVect.size(); i++){
+        for (int i = 0; i < houseVect.size(); i++){             // Double check if user exist
             if (reqUserName == memberVect[i].getUserName()) {
-                houseVect[indexOfHouse].addRequest(Request(&memberVect[i],Period(stoi(sd),stoi(sm),stoi(sy),stoi(ed),stoi(em),stoi(ey))));
+                houseVect[indexOfHouse].addRequest(Request(reqUserName,Period(stoi(sd),stoi(sm),stoi(sy),stoi(ed),stoi(em),stoi(ey))));
                 cout << "A request made by " << memberVect[i].getUserName() << " loaded\n";
 
             }
@@ -200,6 +200,7 @@ int main() {
     memberVec[0].showInfo();
 
     houseVec[0].getOwner()->showInfo();
+    houseVec[0].showHouseInfo();
     
     // houseVec[0].getOwner()->showInfo();
     saveToFile("database.csv",houseVec,'~' , '|');
