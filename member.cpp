@@ -1,29 +1,44 @@
 #include "Member.h"
+// #include "main.cpp"
+
 
 
 Member::Member(string fullNameVal, string userNameVal, string passwordVal,  int phoneVal, int creditPointVal, double occupierRatingScoreVal, int numOfRatingVal): 
             fullName(fullNameVal), userName(userNameVal), password(passwordVal), phoneNumber(phoneVal),creditPoint(creditPointVal), occupierRatingScore(occupierRatingScoreVal),numOfRatings(numOfRatingVal) {};
 
 
-string Member::getFullName(){
+string &Member::getFullName(){
     return this->fullName;
 }
-string Member::getUserName(){
+string &Member::getUserName(){
     return this->userName;
 };
-string Member::getPassword(){
+string &Member::getPassword(){
     return this->password;
 };
-int Member::getPhoneNumber(){
+int &Member::getPhoneNumber(){
     return this->phoneNumber;
 };
-int Member::getCreditPoint(){
+int &Member::getCreditPoint(){
     return this->creditPoint;
 };
-double Member::getOccupierScore(){
+double &Member::getOccupierScore(){
     return this->occupierRatingScore;
 }
+int &Member::getNumOfRatings(){
+    return this->numOfRatings;
+}
 
+void Member::calOcuNewScore(int temp){
+    cout << "Please rate the member from -10(Very Dislikke) to 10(Very like): ";
+    cin >> temp;
+    while (temp < -10 || temp > 10)
+    {
+        cout << "Please enter a number: ";
+        cin >> temp;
+    }
+    occupierRatingScore = ((occupierRatingScore * numOfRatings) + temp) / (numOfRatings + 1);
+}
 
 void Member::showInfo(){
     cout << "\n";
@@ -34,21 +49,3 @@ void Member::showInfo(){
     cout << "credit point= " << creditPoint << "\n";
     cout << "Occupation score= " << occupierRatingScore << "\n";
 }
-
-
-
-// void Member::requestToOccupy(House &house,int sd,int sm,int sy,int ed, int em,int ey){
-//     house.addRequest(Request(*this,Period(sd,sm,sy,ed,em,ey)));
-// };
-
-// void Member::reviewHouse(House &house,string reviewString){
-//     house.addReview(*this,reviewString);
-// }
-
-
-
-// int main(){
-// /*TESTING PURPOSES*/
-//     Member m1("Nguyen Huu Khang","metalbox","password",12344442);
-//     m1.showInfo();
-// }
