@@ -206,7 +206,7 @@ void Menu::checkLogin(vector<Member> &memberVec){
     }
 }
 
-void Menu::registerAccount(vector<Member> &memberVec){
+void Menu::registerAccount(vector<Member> &memberVec,vector<House> &houseVec){
     system("cls");
     string fullName, userName, phoneNumber, password;
     cout << "Please provide your name: ";
@@ -224,6 +224,10 @@ void Menu::registerAccount(vector<Member> &memberVec){
         }
         else {
             memberVec.push_back(Member(fullName, userName, password, std::stoi(phoneNumber)));
+            houseVec.push_back(House());
+            for (int i = 0; i < houseVec.size(); i++){
+                houseVec[i].setOwner(&memberVec[i]);
+            }
             cout << "Successfull register!" << endl;
             cout << "Welcome, " << fullName << "! We glad you are here.";
             memberMenu();

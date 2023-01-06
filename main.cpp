@@ -123,7 +123,7 @@ void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &r
         indexOfHouse++;
 
     }
-    // Loading Owners into house
+    // Loading Owners pointers into house
     for (int i = 0; i < houseVect.size(); i++){
         houseVect[i].setOwner(&memberVect[i]);
     }
@@ -174,7 +174,7 @@ int main() {
     vector<Request> requestVec = {};
     loadFromFile("database.csv",memberVec,requestVec,houseVec,'~','|');
     Menu menu;
-    menu.registerAccount(memberVec);
+    menu.registerAccount(memberVec,houseVec);
 
     saveToFile("database.csv",houseVec, '~' , '|');
 
