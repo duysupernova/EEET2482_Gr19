@@ -109,7 +109,7 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
             //Rate occupier
             break;
         case 7:
-            //Search house on listing
+            houseVec[currUserIndex].sreachHouse(houseVec);
         case 8:
             //Make request
             break;
