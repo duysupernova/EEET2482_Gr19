@@ -129,6 +129,7 @@ void loadFromFile(string fileName,vector<Member> &memberVect,vector<House> &hous
 
     // LOADING THE REQUESTS TIME
     string reqUserName;
+    string isAcceptedString;
     indexOfHouse = 0;
     cout << "Start loading requests\n";
 
@@ -151,10 +152,11 @@ void loadFromFile(string fileName,vector<Member> &memberVect,vector<House> &hous
         getline(myfile,ed,'/');
         getline(myfile,em,'/');
         getline(myfile,ey,fDelimit);
-
+        getline(myfile,isAcceptedString,fDelimit);
+        
         for (int i = 0; i < houseVect.size(); i++){             // Double check if user exist
             if (reqUserName == memberVect[i].getUserName()) {
-                houseVect[indexOfHouse].addRequest(Request(reqUserName,Period(stoi(sd),stoi(sm),stoi(sy),stoi(ed),stoi(em),stoi(ey))));
+                houseVect[indexOfHouse].addRequest(Request(reqUserName,Period(stoi(sd),stoi(sm),stoi(sy),stoi(ed),stoi(em),stoi(ey)),stoi(isAcceptedString)));
                 cout << "A request made by " << memberVect[i].getUserName() << " loaded\n";
 
             }

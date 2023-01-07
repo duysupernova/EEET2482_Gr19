@@ -9,10 +9,13 @@
 class Request {
     Period periodToOccupy;
     string memberWantToOccupy;
+    bool isAccepted;
 public:
-    Request(string memberVal, Period period);
-
+    Request(string memberVal, Period period, bool isAcceptVal);
     string toString();
+    string &getMemberToOccupy();
+    Period &getPeriod();
+    void setIsAccept(bool accept);
 };
 
 

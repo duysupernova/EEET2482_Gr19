@@ -45,6 +45,8 @@ public:
     void checkIfQualify(Member member);
     void listHouse(Member member);
     void unlistHouse(); 
+    void viewRequest();
+    void acceptRequest();
     friend void saveToFile(string fileName, vector<House> &houseArr, char firstDelimiter, char secDelimiter);
     friend void loadFromFile(string fileName,vector<Member> &memberVect, vector<House> &houseVect, char fDelimit);
 };

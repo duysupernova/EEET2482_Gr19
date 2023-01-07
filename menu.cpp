@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include "menu.h"
+#include "house.h"
 using namespace std;
     // void mainMenu();
     // void guestMenu();
@@ -76,15 +77,14 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
         cout << "[1] Information" << endl;
         cout << "[2] List house for occupation" << endl;
         cout << "[3] Un-list House" << endl;
-        cout << "[4] View request" << endl;
-        cout << "[5] Accept request" << endl;
-        cout << "[6] Rate occupier" << endl;
-        cout << "[7] Search house on listing" << endl;
-        cout << "[8] Make request" << endl;
-        cout << "[9] View status of house request" << endl;
-        cout << "[10] Rate house" << endl;
-        cout << "[11] Go back" << endl;
-        cout << "[12] End program" << endl;
+        cout << "[4] View and Accept request" << endl;
+        cout << "[5] Rate occupier" << endl;
+        cout << "[6] Search house on listing" << endl;
+        cout << "[7] Make request" << endl;
+        cout << "[8] View status of house request" << endl;
+        cout << "[9] Rate house" << endl;
+        cout << "[10] Go back" << endl;
+        cout << "[11] End program" << endl;
         cout << "Please enter an option: ";
         cin >> input;
 
@@ -100,12 +100,9 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
             //Un-list House
             break;
         case 4:
-            //View request
+            houseVec[currUserIndex].acceptRequest();
             break;
         case 5:
-            //Accept request
-            break;
-        case 6:
             //Rate occupier
             break;
         case 7:
@@ -113,15 +110,15 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
         case 8:
             //Make request
             break;
-        case 9:
+        case 8:
             //View status of house request
             break;
-        case 10:
+        case 9:
             //Rate house
-        case 11:
+        case 10:
             //Go back                                       // DONE
             break;
-        case 12:
+        case 11:
             endProgram(houseVec);
             break;       
         default:

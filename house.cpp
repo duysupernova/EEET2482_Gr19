@@ -122,6 +122,78 @@ void House::unlistHouse(){
     cout << "Successful unlist house!";
 }
 
+void House::viewRequest(){
+    for (int i = 0; i < requestsToOccupy.size();i++){
+        cout << i+1 <<". " << requestsToOccupy[i].getMemberToOccupy() << ": " << requestsToOccupy[i].getPeriod().toString() << endl;
+
+    }
+}
+
+void House::acceptRequest(){
+    system("cls");
+    viewRequest();
+    int temp;
+    cout << "Please enter a number to accept a request: ";
+    cin >> temp;
+    if(temp-1 >= requestsToOccupy.size()){
+        cout << "Invalid input!";
+    } else {
+        requestsToOccupy[temp-1].setIsAccept(true);
+        cout << "Request acceptance registered";
+        vector<int> indexOfReqDel = {};
+        // Find requests that are overlapping
+        for (int i = 0; i < requestsToOccupy.size(); i++) {
+            if(requestsToOccupy[temp-1].getPeriod().isOverlapPeriod(requestsToOccupy[i].getPeriod())) {
+                indexOfReqDel.push_back(temp-1);
+            }
+        }
+        // Finally delete the requests
+        for (int i = indexOfReqDel.size() - 1; i >= 0; i--) {
+            requestsToOccupy.erase(requestsToOccupy.begin()+indexOfReqDel[i]);
+        }
+        cout << "Request Accepted successfully\n";
+        cout << "Press any number to continue";
+        cin >> temp;
+
+    }
+}
+
+void House::viewRequest(){
+    for (int i = 0; i < requestsToOccupy.size();i++){
+        cout << i+1 <<". " << requestsToOccupy[i].getMemberToOccupy() << ": " << requestsToOccupy[i].getPeriod().toString() << endl;
+
+    }
+}
+
+void House::acceptRequest(){
+    system("cls");
+    viewRequest();
+    int temp;
+    cout << "Please enter a number to accept a request: ";
+    cin >> temp;
+    if(temp-1 >= requestsToOccupy.size()){
+        cout << "Invalid input!";
+    } else {
+        requestsToOccupy[temp-1].setIsAccept(true);
+        cout << "Request acceptance registered";
+        vector<int> indexOfReqDel = {};
+        // Find requests that are overlapping
+        for (int i = 0; i < requestsToOccupy.size(); i++) {
+            if(requestsToOccupy[temp-1].getPeriod().isOverlapPeriod(requestsToOccupy[i].getPeriod())) {
+                indexOfReqDel.push_back(temp-1);
+            }
+        }
+        // Finally delete the requests
+        for (int i = indexOfReqDel.size() - 1; i >= 0; i--) {
+            requestsToOccupy.erase(requestsToOccupy.begin()+indexOfReqDel[i]);
+        }
+        cout << "Request Accepted successfully\n";
+        cout << "Press any number to continue";
+        cin >> temp;
+
+    }
+}
+
 void House::sreachHouse(vector<House> &houseVec){
     int sDate, sMonth, sYear, eDate, eMonth, eYear;
     cout << "Please enter start day: ";
