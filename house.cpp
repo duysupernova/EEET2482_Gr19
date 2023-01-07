@@ -122,7 +122,28 @@ void House::unlistHouse(){
     cout << "Successful unlist house!";
 }
 
+void House::sreachHouse(vector<House> &houseVec){
+    int sDate, sMonth, sYear, eDate, eMonth, eYear;
+    cout << "Please enter start day: ";
+    cin >> sDate;
+    cout << "Please enter month: ";
+    cin >> sMonth;
+    cout << "Please enter year: ";
+    cin >> sYear;
+    cout << "Please enter end day: ";
+    cin >> eDate;
+    cout << "Please enter month: ";
+    cin >> eMonth;
+    cout << "Please enter year: ";
+    cin >> eYear;
+    Period periodForSreachHouse = Period(sDate, sMonth, sYear, eDate, eMonth, eYear);
 
+    for (int i = 0; i << houseVec.size(); i++){
+        if(houseVec[i].periodForOccupy.isInsidePeriod(periodForSreachHouse)){
+            houseVec[i].showHouseInfo();
+        }
+    }
+}
 
 // int main(){
 //     Member m1("Nguyen Huu Khang","metalbox","password",12344442);

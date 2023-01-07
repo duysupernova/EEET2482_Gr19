@@ -41,6 +41,7 @@ public:
     void getHouseRating(int temp);//(fix)
     void addRequest(Request requestToAdd);
     void addReview(Member &member, string reviewString);
+    void sreachHouse(vector<House> &houseVec);
     void checkIfQualify(Member member);
     void listHouse(Member member);
     void unlistHouse(); 

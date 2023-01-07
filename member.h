@@ -41,7 +41,6 @@ public:
     void requestToOccupy(string houseId,int sd,int sm,int sy,int ed, int em,int ey);
     void reviewHouse(House &House,string reviewString);
     void calOcuNewScore(int temp);
-
     // FUNCTIONS for the owner
 
     friend class House;
