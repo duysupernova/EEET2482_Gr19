@@ -6,11 +6,14 @@
 
 class Menu{
     public:
-    void guestMenu();
-    void memberMenu();
-    void adminMenu();
-    void mainMenu();
-    void checkLogin(vector<Member> &memberVec);
+    void guestMenu(vector<Member> &memberVec,vector<House> &houseVec);
+    void memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House> &houseVec);
+    void adminMenu(vector<Member> &memberVec,vector<House> &houseVec);
+    void mainMenu(int &currUserIndex, vector<Member> &memberVec,vector<House> &houseVec);
+
+    // MAIN MENUS
+    void checkLogin(vector<Member> &memberVec,vector<House> &houseVec);
+    // GUEST MENUS
     void registerAccount(vector<Member> &memberVec,vector<House> &houseVec);
 };
 

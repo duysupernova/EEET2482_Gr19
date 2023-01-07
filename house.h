@@ -44,7 +44,7 @@ public:
     void listHouse(Member member);
     void unlistHouse(); 
     friend void saveToFile(string fileName, vector<House> &houseArr, char firstDelimiter, char secDelimiter);
-    friend void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &requestVect,  vector<House> &houseVect, char fDelimit, char sDelimit);
+    friend void loadFromFile(string fileName,vector<Member> &memberVect,vector<House> &houseVect, char fDelimit);
 };
 
 #endif

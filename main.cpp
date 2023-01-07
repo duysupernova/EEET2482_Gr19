@@ -18,7 +18,6 @@ void saveToFile(string fileName, vector<House> &houseVec, char firstDelimiter, c
     // First loop for saving Members and Houses to file
     for (House house : houseVec){
         // Member time
-        cout << "House accessed\n";
         myfile << house.owner->fullName << firstDelimiter;         // VSCode says it's inacessible
         myfile << house.owner->userName << firstDelimiter;         // But it is acessible
         myfile << house.owner->password << firstDelimiter;
@@ -56,7 +55,7 @@ void saveToFile(string fileName, vector<House> &houseVec, char firstDelimiter, c
     myfile.close();
 }
 
-void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &requestVect,  vector<House> &houseVect, char fDelimit, char sDelimit){
+void loadFromFile(string fileName,vector<Member> &memberVect,vector<House> &houseVect, char fDelimit){
     std::fstream myfile;
     myfile.open(fileName,std::ios::in);
     
@@ -137,7 +136,7 @@ void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &r
     myfile.ignore(1,'\n');
     while(!myfile.eof()){
         getline(myfile,reqUserName,fDelimit);
-        if(!reqUserName.find("\nNone")){                 // Another new house and this house doesn't havve request
+        if(!reqUserName.find("\nNone")){                 // Another new house and this house doesn't have request
             indexOfHouse += 1;                          // Go to next house
             continue;
         } else if (!reqUserName.find('\n')){
@@ -171,10 +170,10 @@ int main() {
     std::cout << "Hello World!\n";
     vector<Member> memberVec = {};
     vector<House> houseVec = {};
-    vector<Request> requestVec = {};
-    loadFromFile("database.csv",memberVec,requestVec,houseVec,'~','|');
+    int currentMemberIndex = -1;
+    loadFromFile("database.csv",memberVec,houseVec,'~');
     Menu menu;
-    menu.registerAccount(memberVec,houseVec);
+    menu.mainMenu(currentMemberIndex,memberVec,houseVec);
 
     saveToFile("database.csv",houseVec, '~' , '|');
 
