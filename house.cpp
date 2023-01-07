@@ -1,24 +1,45 @@
-#include "House.h"
+#include "house.h"
 #include "member.h"
 
-House::House(string locationVal, string descriptVal, string cityVal, int hRating, Period period, vector<string> reviews, vector<Request> requests,Member *ownerVal):
-            owner(ownerVal),location(locationVal),description(descriptVal),city(cityVal), houseRating(hRating), periodForOccupy(period),userReviews(reviews),requestsToOccupy(requests){};
+House::House(Member* ownerVal,string locationVal, string descriptVal, string cityVal, double hRating, int numRatings, int minOccupierVal, int ptVal, Period period, vector<string> reviews, vector<Request> requests):
+            location(locationVal),description(descriptVal),city(cityVal), houseRating(hRating), numOfRatings(numRatings), minOccupierRating(minOccupierVal), ptPerDay(ptVal),
+            periodForOccupy(period),userReviews(reviews),requestsToOccupy(requests){
+                this->owner = ownerVal;
+            };
+
+Member *House::getOwner(){
+    return owner;
+};
+void House::setOwner(Member* member){
+    this->owner = member;
+}
+
+
+
 
 void House::showHouseInfo(){ //show more info for member and admin
-    cout << "HOUSE location = " << location << endl;
+    cout << endl << "HOUSE location = " << location << endl;
     cout << "Description = "<< description << endl;
     cout << "City = " << city << endl;
-    cout << "User review = " << endl; //test print out the vector string
+    cout << "User review(s) = " << endl; //test print out the vector string
     for (string review : userReviews){
-        cout << "\t" << review;
+        cout << "\t" << review << "\n";
     }
-    cout << endl << "Requests = "<< endl; //test print out the vector string
+    cout << "Requests = "<< endl; //test print out the vector string
     for (Request request : requestsToOccupy){
-        cout << "\t" << request.toString();
+        cout << "\t" << request.toString() << "\n";
     }
     cout << "House Rating = " << houseRating << endl;
                 
 }
+
+void House::addRequest(Request requestToAdd){
+    requestsToOccupy.push_back(requestToAdd);
+}
+void House::addReview(Member &member, string reviewString){
+    userReviews.push_back(member.userName + ": " + reviewString);
+}
+
 void House::getLocation(){ //owner input location of the house
         cout <<"Enter house location: ";
         getline(cin,location);
@@ -31,8 +52,8 @@ void House::getLocation(){ //owner input location of the house
 void House::getCity(){//owner input city of the house
     cout << "Enter city(Ha Noi, Hue, Sai Gon): ";
     getline(cin, city);
-    while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon") && (city == "")){ //limit the city choice
-         cout << "Wrong input city (Ha Noi, Hue, Sai Gon), Please choose a city: ";
+    while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon")){ //limit the city choice
+         cout << "Wrong input city, Please choose a city(Ha Noi, Hue, Sai Gon): ";
          getline(cin, city);
          }
     }//(fix)
@@ -64,15 +85,16 @@ void House::getHouseRating(int temp){//occupier rate the score of the house
         houseRating = ((houseRating * requestsToOccupy.size())+ temp)/ (requestsToOccupy.size() +1);
     }//(fix)
 
-void House::addRequest(Request requestToAdd){
-    requestsToOccupy.push_back(requestToAdd);
-}
 
-void House::checkIfQualify(Member member){//check quality of the occupier
-    if(consumingPointPerDay < member.getCreditPoint()) {
+
+
+
+
+void House::checkIfQualify(Member member){
+    if(ptPerDay < member.getCreditPoint()) {
         cout << "You dont have enough point to rent this house!";
     } 
-    if (minimumOcupierRating < member.getOccupierScore()) {
+    if (ptPerDay < member.getOccupierScore()) {
         cout << "You dont have enough point to rent this house!";
     }
     else {
@@ -96,9 +118,9 @@ void House::listHouse(Member member){
     cin  >> eYear;
     periodForOccupy = Period(sDate, sMonth, sYear, eDate, eMonth, eYear);
     cout << "Please enter a consuming point per day: ";
-    cin >> consumingPointPerDay;
+    cin >> ptPerDay;
     cout << "Please enter a minimum required occupier rating: ";
-    cin >> minimumOcupierRating;
+    cin >> minOccupierRating;
     checkIfQualify(member);
 }
 
@@ -109,10 +131,10 @@ void House::unlistHouse(){
 
 
 
-int main(){
-    Member m1("Nguyen Huu Khang","metalbox","password",12344442);
-    m1.showInfo();
-    House h1("46 Le Van Ben", "Beautiful garden","Ho Chi Minh",100,Period(1,1,2023,21,1,2023),{"Clean","Fresh Air", "Cheap"},{},&m1);
+// int main(){
+//     Member m1("Nguyen Huu Khang","metalbox","password",12344442);
+//     m1.showInfo();
+//     House h1("46 Le Van Ben", "Beautiful garden","Ho Chi Minh",100,Period(1,1,2023,21,1,2023),{"Clean","Fresh Air", "Cheap"},{},&m1);
 
-    return 0;
-}
+//     return 0;
+// }
