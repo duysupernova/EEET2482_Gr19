@@ -2,7 +2,7 @@
 #include "member.h"
 
 House::House(Member* ownerVal,string locationVal, string descriptVal, string cityVal, double hRating, int numRatings, int minOccupierVal, int ptVal, Period period, vector<string> reviews, vector<Request> requests):
-            location(locationVal),description(descriptVal),city(cityVal), houseRating(hRating), numOfRatings(numRatings), minOccupierRating(minOccupierVal), ptPerDay(ptVal),
+            location(locationVal),description(descriptVal),city(cityVal), houseRating(hRating), minOccupierRating(minOccupierVal), ptPerDay(ptVal),
             periodForOccupy(period),userReviews(reviews),requestsToOccupy(requests){
                 this->owner = ownerVal;
             };
