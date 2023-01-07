@@ -75,48 +75,56 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
         system("cls");
         cout << "Hello traveler! " << memberVec[currUserIndex].getUserName() <<  endl;
         cout << "[1] Information" << endl;
-        cout << "[2] List house for occupation" << endl;
-        cout << "[3] Un-list House" << endl;
-        cout << "[4] View and Accept request" << endl;
-        cout << "[5] Rate occupier" << endl;
-        cout << "[6] Search house on listing" << endl;
-        cout << "[7] Make request" << endl;
-        cout << "[8] View status of house request" << endl;
-        cout << "[9] Rate house" << endl;
-        cout << "[10] Go back" << endl;
-        cout << "[11] End program" << endl;
+        cout << "[2] Register & Change house infomation" << endl;
+        cout << "[3] List house for occupation" << endl;
+        cout << "[4] Un-list House" << endl;
+        cout << "[5] View and Accept request" << endl;
+        cout << "[6] Rate occupier" << endl;
+        cout << "[7] Search house on listing" << endl;
+        cout << "[8] Make request" << endl;
+        cout << "[9] View status of house request" << endl;
+        cout << "[10] Rate house" << endl;
+        cout << "[11] Go back" << endl;
+        cout << "[12] End program" << endl;
         cout << "Please enter an option: ";
         cin >> input;
 
         switch (input)
         {
         case 1:
-            //show full information
+            memberVec[currUserIndex].showInfo();
             break;
         case 2:
-            //List house for occupation
+            houseVec[currUserIndex].registerHouseMenu();                // Working
             break;
         case 3:
-            //Un-list House
+            houseVec[currUserIndex].listHouse();
             break;
         case 4:
-            houseVec[currUserIndex].acceptRequest();
+            houseVec[currUserIndex].unlistHouse();
             break;
         case 5:
-            //Rate occupier
+            houseVec[currUserIndex].acceptRequest();                    // Working
+            break;
+        case 6:
+            houseVec[currUserIndex].rateOccupier(houseVec);
             break;
         case 7:
             houseVec[currUserIndex].sreachHouse(houseVec);
+            break;
         case 8:
             //Make request
             break;
         case 9:
-            //Rate house
+            //View status of house request
             break;
         case 10:
-            //Go back                                       // DONE
+            //Rate house
             break;
         case 11:
+            //Go back                                       
+            break;
+        case 12:
             endProgram(houseVec);
             break;       
         default:

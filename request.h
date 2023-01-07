@@ -13,8 +13,12 @@ class Request {
 public:
     Request(string memberVal, Period period, bool isAcceptVal);
     string toString();
+
+
     string &getMemberToOccupy();
     Period &getPeriod();
+    bool &getIsAccept();
+    
     void setIsAccept(bool accept);
 };
 

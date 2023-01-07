@@ -12,12 +12,16 @@ string Request::toString(){
     return memberWantToOccupy + "~" + periodToOccupy.toString() + "~" + stringAccept;
 }
 
+
 string &Request::getMemberToOccupy(){
     return memberWantToOccupy;
 }
 
 Period &Request::getPeriod(){
     return periodToOccupy;
+}
+bool &Request::getIsAccept(){
+    return isAccepted;
 }
 
 void Request::setIsAccept(bool isAcceptVal) {

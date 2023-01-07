@@ -29,15 +29,17 @@ int &Member::getNumOfRatings(){
     return this->numOfRatings;
 }
 
-void Member::calOcuNewScore(int temp){
+void Member::calOcuNewScore(){
+    int temp;
     cout << "Please rate the member from -10(Very Dislikke) to 10(Very like): ";
     cin >> temp;
     while (temp < -10 || temp > 10)
     {
-        cout << "Please enter a number: ";
+        cout << "Please enter a number from -10(Very Dislikke) to 10(Very like): ";
         cin >> temp;
     }
     occupierRatingScore = ((occupierRatingScore * numOfRatings) + temp) / (numOfRatings + 1);
+    numOfRatings += 1;
 }
 
 void Member::showInfo(){

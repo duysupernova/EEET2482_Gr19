@@ -40,13 +40,14 @@ public:
     void getUserReview();//(fix)
     void getHouseRating(int temp);//(fix)
     void addRequest(Request requestToAdd);
-    void addReview(Member &member, string reviewString);
+    void addReview(Member *member, string reviewString);
     void sreachHouse(vector<House> &houseVec);
     void checkIfQualify(Member member);
-    void listHouse(Member member);
+    void listHouse();
     void unlistHouse(); 
     void viewRequest();
     void acceptRequest();
+    void rateOccupier(vector<House> &houseVec);
     friend void saveToFile(string fileName, vector<House> &houseArr, char firstDelimiter, char secDelimiter);
     friend void loadFromFile(string fileName,vector<Member> &memberVect, vector<House> &houseVect, char fDelimit);
 };
