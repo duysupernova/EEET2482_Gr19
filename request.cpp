@@ -4,11 +4,12 @@
 
 using std::string;
 
-Request::Request(string memberVal, Period period):
-    memberWantToOccupy(memberVal),periodToOccupy(period){};
+Request::Request(string memberVal, Period period,bool isAcceptVal):
+    memberWantToOccupy(memberVal),periodToOccupy(period),isAccepted(isAcceptVal) {};
 
 string Request::toString(){
-    return memberWantToOccupy + "~" + periodToOccupy.toString();
+    string stringAccept = isAccepted? "1" : "0";
+    return memberWantToOccupy + "~" + periodToOccupy.toString() + "~" + stringAccept;
 }
 
 // int main() {
