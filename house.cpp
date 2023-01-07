@@ -2,7 +2,7 @@
 #include "member.h"
 
 House::House(Member* ownerVal,string locationVal, string descriptVal, string cityVal, double hRating, int numRatings, int minOccupierVal, int ptVal, Period period, vector<string> reviews, vector<Request> requests):
-            location(locationVal),description(descriptVal),city(cityVal), house_Rating(hRating), numOfRatings(numRatings), minOccupierRating(minOccupierVal), ptPerDay(ptVal),
+            location(locationVal),description(descriptVal),city(cityVal), houseRating(hRating), numOfRatings(numRatings), minOccupierRating(minOccupierVal), ptPerDay(ptVal),
             periodForOccupy(period),userReviews(reviews),requestsToOccupy(requests){
                 this->owner = ownerVal;
             };
@@ -27,7 +27,7 @@ void House::showHouseInfo(){ //show more info for member and admin
     for (Request request : requestsToOccupy){
         cout << "\t" << request.toString() << "\n";
     }
-    cout << "House Rating = " << house_Rating << endl;
+    cout << "House Rating = " << houseRating << endl;
                 
 }
 
@@ -37,6 +37,74 @@ void House::addRequest(Request requestToAdd){
 void House::addReview(Member &member, string reviewString){
     userReviews.push_back(member.userName + ": " + reviewString);
 }
+
+// void House::getLocation(){ //owner input location of the house
+//         cout <<"Enter house location: ";
+//         getline(cin,location);
+
+//         while(location == ""){ //error check
+//             cout <<"You must not leave location empty, please enter house location: ";
+//             getline(cin,location);
+//         }
+//     }//(fix)
+// void House::getCity(){//owner input city of the house
+//     cout << "Enter city(Ha Noi, Hue, Sai Gon): ";
+//     getline(cin, city);
+//     while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon")){ //limit the city choice
+//          cout << "Wrong input city, Please choose a city(Ha Noi, Hue, Sai Gon): ";
+//          getline(cin, city);
+//          }
+//     }//(fix)
+
+// void House::getDescription(){//owner input description about the house
+//     cout << "Input description about the house: ";
+//     getline(cin, description);
+//     while(description ==""){
+//         cout << "The description is empty, please enter description about the house: ";
+//         getline(cin, description);
+//     }
+// }//(fix)
+
+void House::registerHouseMenu(){
+    cout <<"Enter house location: ";
+        getline(cin,location);
+
+        while(location == ""){ //error check
+            cout <<"You must not leave location empty, please enter house location: ";
+            getline(cin,location);
+        }
+    cout << "Enter city(Ha Noi, Hue, Sai Gon): ";
+    getline(cin, city);
+    while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon")){ //limit the city choice
+        cout << "Wrong input city, Please choose a city(Ha Noi, Hue, Sai Gon): ";
+        getline(cin, city);
+        }
+    cout << "Input description about the house: ";
+    getline(cin, description);
+    while(description ==""){
+        cout << "The description is empty, please enter description about the house: ";
+        getline(cin, description);
+    }
+
+}
+void House::getUserReview(){//occupier input review about the house
+        string userReview;
+        cout <<"What are your comment about the house: ";
+        getline(cin, userReview);
+        userReviews.push_back (userReview);
+    } //(fix)
+
+void House::getHouseRating(int temp){//occupier rate the score of the house
+        cout << "Please rate quality of the house from -10(Very Dislikke) to 10(Very like): ";
+        cin >> temp;
+        while (temp < -10 || temp > 10){ //Error check if user input wrong scale value
+            cout << "Error!, please rate the quality of house from -10(Very Dislike) to 10(Very like): ";
+            cin >> temp;
+    
+        }
+        houseRating = ((houseRating * requestsToOccupy.size())+ temp)/ (requestsToOccupy.size() +1);
+    }//(fix)
+
 
 
 

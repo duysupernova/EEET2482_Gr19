@@ -17,7 +17,7 @@ private:
     string location;
     string description;
     string city;
-    double house_Rating;   
+    double houseRating;   
     int numOfRatings;
     double minOccupierRating;
     int ptPerDay;
@@ -33,18 +33,19 @@ public:
     Member *getOwner();
     void setOwner(Member* member);
     void showHouseInfo();
-    void getCity();//(fix)
-    void getLocation();//(fix)
-    void getDescription();//(fix)
+    // void getCity();//(fix)
+    // void getLocation();//(fix)
+    // void getDescription();//(fix)
+    void registerHouseMenu();
     void getUserReview();//(fix)
-    void houseRating();//(fix)
+    void getHouseRating(int temp);//(fix)
     void addRequest(Request requestToAdd);
     void addReview(Member &member, string reviewString);
     void checkIfQualify(Member member);
     void listHouse(Member member);
     void unlistHouse(); 
     friend void saveToFile(string fileName, vector<House> &houseArr, char firstDelimiter, char secDelimiter);
-    friend void loadFromFile(string fileName,vector<Member> &memberVect,vector<House> &houseVect, char fDelimit);
+    friend void loadFromFile(string fileName,vector<Member> &memberVect, vector<Request> &requestVect,  vector<House> &houseVect, char fDelimit, char sDelimit);
 };
 
 #endif
