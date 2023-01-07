@@ -110,11 +110,9 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
         case 8:
             //Make request
             break;
-        case 8:
-            //View status of house request
-            break;
         case 9:
             //Rate house
+            break;
         case 10:
             //Go back                                       // DONE
             break;
