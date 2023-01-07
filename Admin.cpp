@@ -54,3 +54,35 @@
 //         // main_menu();
 //     }
 //     }
+#include "Admin2.h"
+
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::string;
+
+int Admin::adminLogin() {
+    string username;
+    string password;
+
+    //checkLogin
+    cout << "Please enter Admin username: ";
+    cin >> username;
+    cout << "Please enter Admin password";
+    cin >> password;
+
+    if(username == usernameAdmin && password == passwordAdmin) {
+        Admin::loggedin = 1;
+        return 1;
+    }
+    else {
+        return 0;
+    }
+
+    //Show member list
+
+
+    //Show house list
+
+}
