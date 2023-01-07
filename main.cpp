@@ -29,7 +29,7 @@ void saveToFile(string fileName, vector<House> &houseVec, char firstDelimiter, c
         myfile << house.location<<firstDelimiter;
         myfile << house.description<<firstDelimiter;
         myfile << house.city<<firstDelimiter;
-        myfile << house.house_Rating<<firstDelimiter; 
+        myfile << house.houseRating<<firstDelimiter; 
         myfile << house.numOfRatings<<firstDelimiter;
         myfile << house.minOccupierRating<<firstDelimiter;
         myfile << house.ptPerDay<<firstDelimiter;
