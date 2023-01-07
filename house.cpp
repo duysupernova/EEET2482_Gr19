@@ -38,34 +38,7 @@ void House::addReview(Member &member, string reviewString){
     userReviews.push_back(member.userName + ": " + reviewString);
 }
 
-// void House::getLocation(){ //owner input location of the house
-//         cout <<"Enter house location: ";
-//         getline(cin,location);
-
-//         while(location == ""){ //error check
-//             cout <<"You must not leave location empty, please enter house location: ";
-//             getline(cin,location);
-//         }
-//     }//(fix)
-// void House::getCity(){//owner input city of the house
-//     cout << "Enter city(Ha Noi, Hue, Sai Gon): ";
-//     getline(cin, city);
-//     while ((city != "Ha Noi") && (city != "Hue") && (city != "Sai Gon")){ //limit the city choice
-//          cout << "Wrong input city, Please choose a city(Ha Noi, Hue, Sai Gon): ";
-//          getline(cin, city);
-//          }
-//     }//(fix)
-
-// void House::getDescription(){//owner input description about the house
-//     cout << "Input description about the house: ";
-//     getline(cin, description);
-//     while(description ==""){
-//         cout << "The description is empty, please enter description about the house: ";
-//         getline(cin, description);
-//     }
-// }//(fix)
-
-void House::registerHouseMenu(){
+void House::registerHouseMenu(){ //for member add house
     cout <<"Enter house location: ";
         getline(cin,location);
 
