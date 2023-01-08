@@ -14,6 +14,7 @@ class Menu{
     // MAIN MENUS
     void checkLogin(vector<Member> &memberVec,vector<House> &houseVec);
     // GUEST MENUS
+    void showHousesInfoMini(vector<House> &houseVec);
     void registerAccount(vector<Member> &memberVec,vector<House> &houseVec);
 };
 

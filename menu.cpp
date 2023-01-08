@@ -48,7 +48,7 @@ void Menu::guestMenu(vector<Member> &memberVec,vector<House> &houseVec){
         switch (input)
         {
         case 1:
-            //view available house
+            showHousesInfoMini(houseVec);                       // DONE
             break;
         case 2:
             registerAccount(memberVec,houseVec);                // havent checked user input
@@ -73,7 +73,7 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
     int input = 0;
     do {
         system("cls");
-        cout << "Hello traveler! " << memberVec[currUserIndex].getUserName() <<  endl;
+        cout << "Hello traveler " << memberVec[currUserIndex].getUserName() <<"!"<<  endl;
         cout << "[1] Information" << endl;
         cout << "[2] Register & Change house infomation" << endl;
         cout << "[3] List house for occupation" << endl;
@@ -81,8 +81,8 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
         cout << "[5] View and Accept request" << endl;
         cout << "[6] Rate occupier" << endl;
         cout << "[7] Search house on listing" << endl;
-        cout << "[8] Make request" << endl;
-        cout << "[9] View status of house request" << endl;
+        cout << "[8] View status of house request" << endl;
+        cout << "[9] Review house" << endl;
         cout << "[10] Rate house" << endl;
         cout << "[11] Go back" << endl;
         cout << "[12] End program" << endl;
@@ -92,25 +92,25 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
         switch (input)
         {
         case 1:
-            memberVec[currUserIndex].showInfo();
+            houseVec[currUserIndex].showInfoFull();                     // DONE                
             break;
         case 2:
-            houseVec[currUserIndex].registerHouseMenu();                // Working
+            houseVec[currUserIndex].registerHouseMenu();                // DONE
             break;
         case 3:
-            houseVec[currUserIndex].listHouse();
+            houseVec[currUserIndex].listHouse();                        // Done
             break;
-        case 4:
-            houseVec[currUserIndex].unlistHouse();
+        case 4: 
+            houseVec[currUserIndex].unlistHouse();                      // DONE
             break;
         case 5:
-            houseVec[currUserIndex].acceptRequest();                    // Working
+            houseVec[currUserIndex].acceptRequest();                    // DONE
             break;
         case 6:
-            houseVec[currUserIndex].rateOccupier(houseVec);
+            houseVec[currUserIndex].rateOccupier(houseVec);             // DONE
             break;
         case 7:
-            houseVec[currUserIndex].sreachHouse(houseVec);
+            houseVec[currUserIndex].sreachHouse(houseVec);              // half way
             break;
         case 8:
             //Make request
@@ -203,6 +203,19 @@ void Menu::mainMenu(int &currUserIndex, vector<Member> &memberVec,vector<House> 
     } while (input != 4);
 }
 
+void Menu::showHousesInfoMini(vector<House> &houseVec){
+    string tempt;
+    system("cls");
+    cout << "====All available houses for occupy====\n";
+    for(House house : houseVec){
+        if(Period(3,1,1970,1,1,9999).isInsidePeriod(house.getPeriodForOccupy())){
+            house.showInfoMini();
+        }
+    }
+    cout << "\n\nPress a character and enter to continue\n";
+    cin >> tempt;
+}
+
 void Menu::checkLogin(vector<Member> &memberVec,vector<House> &houseVec){
     int exist = -1;
     string userName_val;
@@ -224,7 +237,9 @@ void Menu::checkLogin(vector<Member> &memberVec,vector<House> &houseVec){
         memberMenu(currUserIndex,memberVec,houseVec);
     } 
     else {
-        cout << "Fail to login. If you dont have an account, please register!" << endl;
+        cout << "\n\nFail to login. If you dont have an account, please register!" << endl;
+        cout << "Press a character and enter to continue\n";
+        cin >> userName_val;
     }
 }
 

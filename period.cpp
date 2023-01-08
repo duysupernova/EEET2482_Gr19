@@ -29,7 +29,7 @@ void Period::showInfo(){
     char timeFormat[20] =  "%A %b%d %Y";
     strftime(startInfo,50,timeFormat,&startDate);
     strftime(endInfo,50,timeFormat,&endDate);
-    std::cout << "Period: " << startInfo << " --> " << endInfo << "\n";
+    std::cout << startInfo << " --> " << endInfo << "\n";
 }
 
 string Period::toString(){

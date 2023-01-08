@@ -6,11 +6,13 @@
 #include "Request.h"
 #include <string>
 #include <vector>
+#include <cctype>
 using std::vector;
 using std::string;
 using std::endl;
 using std::cout;
 using std::cin;
+using std::isdigit;
 
 class House{
 private:
@@ -33,21 +35,30 @@ public:
     Member *getOwner();
     void setOwner(Member* member);
     void showHouseInfo();
-    // void getCity();//(fix)
-    // void getLocation();//(fix)
-    // void getDescription();//(fix)
+    void showInfoFull();
+    void showInfoMini();
+    // void getCity();//
+    // void getLocation();
+    // void getDescription();
+    void getUserReview();
+    void getHouseRating(int temp);
+    Period &getPeriodForOccupy();
+
+    /*  HOUSE OWNERS menus */
     void registerHouseMenu();
-    void getUserReview();//(fix)
-    void getHouseRating(int temp);//(fix)
-    void addRequest(Request requestToAdd);
-    void addReview(Member *member, string reviewString);
-    void sreachHouse(vector<House> &houseVec);
-    void checkIfQualify(Member member);
     void listHouse();
     void unlistHouse(); 
     void viewRequest();
     void acceptRequest();
     void rateOccupier(vector<House> &houseVec);
+    /*  RENTERS menus */
+    void addRequest(Request requestToAdd);
+    void addReview(Member *member, string reviewString);
+    void sreachHouse(vector<House> &houseVec);
+    void requestToOccupy();
+    void checkIfQualify(Member member);
+
+
     friend void saveToFile(string fileName, vector<House> &houseArr, char firstDelimiter, char secDelimiter);
     friend void loadFromFile(string fileName,vector<Member> &memberVect, vector<House> &houseVect, char fDelimit);
 };

@@ -10,15 +10,22 @@ House::House(Member* ownerVal,string locationVal, string descriptVal, string cit
 Member *House::getOwner(){
     return owner;
 };
+
+Period &House::getPeriodForOccupy(){
+    return this->periodForOccupy;
+};
 void House::setOwner(Member* member){
     this->owner = member;
 }
-
 
 void House::showHouseInfo(){ //show more info for member and admin
     cout << endl << "HOUSE location = " << location << endl;
     cout << "Description = "<< description << endl;
     cout << "City = " << city << endl;
+    cout << "Period for rent: "; periodForOccupy.showInfo();
+    cout << "Points per day: " << ptPerDay;
+    cout << "Minimun rating required: " << minOccupierRating;
+    cout << "House Rating = " << houseRating << endl;                
     cout << "User review(s) = " << endl; //test print out the vector string
     for (string review : userReviews){
         cout << "\t" << review << "\n";
@@ -27,9 +34,20 @@ void House::showHouseInfo(){ //show more info for member and admin
     for (Request request : requestsToOccupy){
         cout << "\t" << request.toString() << "\n";
     }
-    cout << "House Rating = " << houseRating << endl;
-                
 }
+void House::showInfoFull(){
+    string tempt;
+    this->owner->showInfo();
+    showHouseInfo();
+    cout << "\n\nPress a character and enter to continue\n";
+    cin >> tempt;
+}
+void House::showInfoMini(){
+    cout << endl << "HOUSE location = " << location << endl;
+    cout << "Description = "<< description << endl;
+    cout << "City = " << city << endl;
+}
+
 
 void House::addRequest(Request requestToAdd){
     requestsToOccupy.push_back(requestToAdd);
@@ -39,6 +57,10 @@ void House::addReview(Member *member, string reviewString){
 }
 
 void House::registerHouseMenu(){ //for member add house
+    string tempt;
+    system("cls");
+    cout << "*====HOUSE INFO====*\n\n";
+
     cout <<"Enter house location: ";
     cin.ignore(1,'\n');
     getline(cin,location);
@@ -59,6 +81,10 @@ void House::registerHouseMenu(){ //for member add house
         cout << "The description is empty, please enter description about the house: ";
         getline(cin, description);
     }
+
+    cout << "\n\nInformation updated successfully!\n";
+    cout << "Press any character and enter to continue\n";
+    cin >> tempt;
 }
 
 void House::getUserReview(){//occupier input review about the house
@@ -97,7 +123,11 @@ void House::checkIfQualify(Member member){
 }
 
 void House::listHouse(){
+    string tempt;
     int sDate, sMonth, sYear, eDate, eMonth, eYear;
+    system("cls");
+    cout << "*====LIST HOUSE====*\n";
+
     cout << "Please enter start day: ";
     cin >> sDate;
     cout << "Please enter month: ";
@@ -115,54 +145,86 @@ void House::listHouse(){
     cin >> ptPerDay;
     cout << "Please enter a minimum required occupier rating: ";
     cin >> minOccupierRating;
+        
+    cout << "\nList house from " ; periodForOccupy.showInfo(); 
+    cout << "With price " << ptPerDay << " per day for renters rating above " << minOccupierRating;
+
+    cout << "\n\nPress any character and enter to continue\n";
+    cin >> tempt;
 }
 
 void House::unlistHouse(){ 
-    periodForOccupy = Period(1,1,1,2,1,1);
-    cout << "Successful unlist house!";
+    string tempt;
+    periodForOccupy = Period(1,1,1970,2,1,1970);
+    system("cls");
+    cout << "*====UNLIST HOUSE====*\n";
+
+    cout << "\nSuccessful unlist house!\n";
+    cout << "Press any character and enter to continue\n";
+    cin >> tempt;
 }
 
 void House::viewRequest(){
     for (int i = 0; i < requestsToOccupy.size();i++){
         cout << i+1 <<". " << requestsToOccupy[i].getMemberToOccupy() << ": " << requestsToOccupy[i].getPeriod().toString() << endl;
-
     }
 }
 
 
 void House::acceptRequest(){
+    string temp;
+    int indexOfAccptReq;
+    vector<Request*> pendingRequests = {};            
+    vector<int> indexOfReqDel = {};
+
     system("cls");
-    viewRequest();
-    int temp;
-    cout << "Please enter a number to accept a request: ";
-    cin >> temp;
-    if(temp-1 >= requestsToOccupy.size()){
-        cout << "Invalid input!";
+    
+    cout << "*====PENDING REQUESTS====*\n";
+    // Filter out and print the unaccepted requests
+    for (int i = 0; i < requestsToOccupy.size(); i++){
+        if(!requestsToOccupy[i].getIsAccept()){
+            pendingRequests.push_back(&requestsToOccupy[i]);
+            cout << i+1 <<". " << requestsToOccupy[i].getMemberToOccupy() << ": " << requestsToOccupy[i].getPeriod().toString() << endl;
+        }
+    }
+    cout << "Please enter a number to accept a request\n ";
+    cout << "Or a random NUMBER to exit\n";
+    cin >> indexOfAccptReq;
+    indexOfAccptReq -= 1;
+    if(indexOfAccptReq >= pendingRequests.size() || indexOfAccptReq < 0){
+        return;
     } else {
-        requestsToOccupy[temp-1].setIsAccept(true);
-        vector<int> indexOfReqDel = {};
+        pendingRequests[indexOfAccptReq]->setIsAccept(true);
         // Find requests that are overlapping
         for (int i = 0; i < requestsToOccupy.size(); i++) {
-            if(i == temp-1){
+            if(requestsToOccupy[i].getIsAccept()){
                 continue;
             }
-            if(requestsToOccupy[temp-1].getPeriod().isOverlapPeriod(requestsToOccupy[i].getPeriod())) {
-                indexOfReqDel.push_back(temp-1);
+            if(pendingRequests[indexOfAccptReq]->getPeriod().isOverlapPeriod(requestsToOccupy[i].getPeriod())) {
+                indexOfReqDel.push_back(i);
             }
         }
         // Finally delete the requests
         for (int i = indexOfReqDel.size() - 1; i >= 0; i--) {
             requestsToOccupy.erase(requestsToOccupy.begin()+indexOfReqDel[i]);
+            cout << "A overlapped request deleted!\n";
         }
-        cout << "Request Accepted successfully\n";
-        cout << "Press any number to continue";
+        cout << "\n\nRequest Accepted successfully\n";
+        cout << "Press any character and enter to continue\n";
         cin >> temp;
 
     }
 }
 
 void House::sreachHouse(vector<House> &houseVec){
+    string temp;
     int sDate, sMonth, sYear, eDate, eMonth, eYear;
+    int indexOfReqHouse;
+    int indexOfAvailHouse = 0;
+    vector<House*> availHouses = {};
+
+    system("cls");
+    cout << "**Please enter the period you want to occupy at this house**\n\n";
     cout << "Please enter start day: ";
     cin >> sDate;
     cout << "Please enter month: ";
@@ -176,26 +238,47 @@ void House::sreachHouse(vector<House> &houseVec){
     cout << "Please enter year: ";
     cin >> eYear;
     Period periodForSreachHouse = Period(sDate, sMonth, sYear, eDate, eMonth, eYear);
-
-    for (int i = 0; i << houseVec.size(); i++){
-        if(houseVec[i].periodForOccupy.isInsidePeriod(periodForSreachHouse)){
-            houseVec[i].showHouseInfo();
+    
+    system("cls");
+    cout << "\n\n*====Available houses====*\n";
+    cout << "From ";periodForSreachHouse.showInfo();
+    for (int i = 0; i < houseVec.size(); i++){
+        if(houseVec[i].city != this->city){
+            continue;
         }
+        if(houseVec[i].periodForOccupy.isInsidePeriod(periodForSreachHouse)){
+            cout << "[" << indexOfAvailHouse+1 << "]\n";
+            houseVec[i].showHouseInfo();
+            availHouses.push_back(&houseVec[i]);
+            indexOfAvailHouse += 1;
+        }
+    }
+    // Ask if user want to only view or actually book a request
+    cout << "\n\nPress the number of house you want to occupy OR a random NUMBER to exit\n";
+    cin >> indexOfReqHouse;
+    indexOfReqHouse--;
+    if (indexOfReqHouse < availHouses.size() && indexOfReqHouse >= 0){
+        availHouses[indexOfReqHouse]->addRequest(Request(this->owner->getUserName(),periodForSreachHouse,false));
+        cout << "\n\nRequest Added successfully";
+        cout << "\nPress any character and enter to continue\n";
+        cin >> temp;
+        return;
     }
 }
 
+
 void House::rateOccupier(vector<House> &houseVec){
     int temptIndex;
-    string temptReview;
+    string temptStr;
     vector<Request> acceptedRequests = {};
-    // To find finshed occupier
+    // To find the past occupiers
     for (int i = 0; i < requestsToOccupy.size(); i++ ){
         if(requestsToOccupy[i].getIsAccept()){
             acceptedRequests.push_back(requestsToOccupy[i]);
         }
     }
-    // To list the occupiers
 
+    system("cls");
     // Print out the accepted requests 
     for (int i = 0; i < acceptedRequests.size();i++){
         cout << i+1 <<". " << acceptedRequests[i].getMemberToOccupy() << ": " << acceptedRequests[i].getPeriod().toString() << endl;
@@ -203,23 +286,27 @@ void House::rateOccupier(vector<House> &houseVec){
     // Choosing the person to rate
     cout << "Please choose a number to rate that occupier: ";
     cin >> temptIndex; 
+    temptIndex -= 1;
     // Actually go
-    if(temptIndex-1 >= acceptedRequests.size()){    // To advoid out of bounds
-        cout << "Invalid input!";
+    if(temptIndex >= acceptedRequests.size()){    // To advoid out of bounds
+        cout << "\n\nInvalid input!\n";
+        cout << "Press any character and enter to continue \n";
+        cin >> temptStr;
     } else {
         for (House house : houseVec){
             if(house.owner->getUserName() == acceptedRequests[temptIndex].getMemberToOccupy()){
                 house.owner->calOcuNewScore();
-                cout << "Add review sucessfully!\n";
                 break;
             }
         }
-        cout << "Press any number to continue";
-        cin >> temptIndex;
-
+        cout << "\n\nRated sucessfully!\n";
+        cout << "Press any character and enter to continue\n";
+        cin >> temptStr;
     }
-
 }
+
+
+
 
 // int main(){
 //     Member m1("Nguyen Huu Khang","metalbox","password",12344442);
