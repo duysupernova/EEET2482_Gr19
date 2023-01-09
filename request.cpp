@@ -11,6 +11,10 @@ string Request::toString(){
     string stringAccept = isAccepted? "1" : "0";
     return memberWantToOccupy + "~" + periodToOccupy.toString() + "~" + stringAccept;
 }
+void Request::showInfo(){
+    cout << memberWantToOccupy << ": ";periodToOccupy.showInfo();
+    cout << "\tStatus: " << (isAccepted?"Accepted":"OnGoing");
+};
 
 
 string &Request::getMemberToOccupy(){

@@ -305,6 +305,51 @@ void House::rateOccupier(vector<House> &houseVec){
     }
 }
 
+void House::viewRequestsMade(vector<House> &houseVec){
+    string temptStr;
+    vector<Request*> requestsMade = {};
+    vector<Request*> requestsMadeAccepted = {};
+    vector<string> requestHLoca = {};
+    vector<string> accptRequestHLoca = {};
+
+    // Find all the requests made by this user and filter them into distinct vectors
+    int houseVecSize = houseVec.size();
+    int requestVecSize;
+
+    for (int i = 0; i < houseVecSize; i++){
+        requestVecSize = houseVec[i].requestsToOccupy.size();
+        for(int j = 0; j < requestVecSize; j++){
+            Request& reqTempt = houseVec[i].requestsToOccupy[j];
+            if (reqTempt.getMemberToOccupy() == this->owner->userName){
+                if(reqTempt.getIsAccept()){          
+                    requestsMadeAccepted.push_back(&reqTempt);
+                    accptRequestHLoca.push_back(houseVec[i].location);
+                } else {
+                    requestsMade.push_back(&reqTempt);
+                    requestHLoca.push_back(houseVec[i].location);
+                }
+            }
+        }
+    }
+    // Print out all the request made by this user
+    system("cls");
+    cout << "All pending requests:" << endl;
+    for(int i = 0; i < requestsMade.size(); i++){
+        cout << "[" << i+1 << "] At " << requestHLoca[i] << endl;
+        requestsMadeAccepted[i]->showInfo(); 
+        cout << endl;    
+    }
+    cout << "\nAccepted requests:" << endl;
+    for(int i = 0; i < requestsMadeAccepted.size(); i++){
+        cout << "[" << i+1 << "] At " << accptRequestHLoca[i] << endl;
+        requestsMadeAccepted[i]->showInfo(); 
+        cout << endl;    
+    }
+    cout << "\n\nPress any character and enter to return\n";
+    cin >> temptStr;
+}
+
+
 
 
 

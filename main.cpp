@@ -144,7 +144,7 @@ void loadFromFile(string fileName,vector<Member> &memberVect,vector<House> &hous
             indexOfHouse += 1;
             reqUserName = reqUserName.substr(1);
         }
-        cout << "\n============The index of house==============" << indexOfHouse << "\n"; 
+        cout << "\n============The index of house==============" << indexOfHouse << "\n";       // For debugging
 
         getline(myfile,sd,'/');
         getline(myfile,sm,'/');

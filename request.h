@@ -11,8 +11,9 @@ class Request {
     string memberWantToOccupy;
     bool isAccepted;
 public:
-    Request(string memberVal, Period period, bool isAcceptVal);
+    Request(string memberVal="", Period period=Period(1,1,1,1,1,1), bool isAcceptVal = false);
     string toString();
+    void showInfo();
 
 
     string &getMemberToOccupy();

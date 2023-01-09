@@ -49,14 +49,14 @@ public:
     void listHouse();
     void unlistHouse(); 
     void viewRequest();
+    void addRequest(Request requestToAdd);
+    void addReview(Member *member, string reviewString);
     void acceptRequest();
     void rateOccupier(vector<House> &houseVec);
     /*  RENTERS menus */
-    void addRequest(Request requestToAdd);
-    void addReview(Member *member, string reviewString);
     void sreachHouse(vector<House> &houseVec);
-    void requestToOccupy();
     void checkIfQualify(Member member);
+    void viewRequestsMade(vector<House> &houseVec);
 
 
     friend void saveToFile(string fileName, vector<House> &houseArr, char firstDelimiter, char secDelimiter);

@@ -81,7 +81,7 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
         cout << "[5] View and Accept request" << endl;
         cout << "[6] Rate occupier" << endl;
         cout << "[7] Search house on listing" << endl;
-        cout << "[8] View status of house request" << endl;
+        cout << "[8] View status of my requests" << endl;
         cout << "[9] Review house" << endl;
         cout << "[10] Rate house" << endl;
         cout << "[11] Go back" << endl;
@@ -104,22 +104,22 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
             houseVec[currUserIndex].unlistHouse();                      // DONE
             break;
         case 5:
-            houseVec[currUserIndex].acceptRequest();                    // DONE
+            houseVec[currUserIndex].acceptRequest();                    // Have to minus occupier score
             break;
         case 6:
             houseVec[currUserIndex].rateOccupier(houseVec);             // DONE
             break;
         case 7:
-            houseVec[currUserIndex].sreachHouse(houseVec);              // half way
+            houseVec[currUserIndex].sreachHouse(houseVec);              // DONE
             break;
         case 8:
-            //Make request
+            houseVec[currUserIndex].viewRequestsMade(houseVec);         // DONE
             break;
         case 9:
-            //View status of house request
+            // Review house
             break;
         case 10:
-            //Rate house
+            // Rate house
             break;
         case 11:
             //Go back                                       
@@ -208,7 +208,7 @@ void Menu::showHousesInfoMini(vector<House> &houseVec){
     system("cls");
     cout << "====All available houses for occupy====\n";
     for(House house : houseVec){
-        if(Period(3,1,1970,1,1,9999).isInsidePeriod(house.getPeriodForOccupy())){
+        if(!Period(3,1,1970,1,1,9999).isInsidePeriod(house.getPeriodForOccupy())){
             house.showInfoMini();
         }
     }
@@ -228,8 +228,10 @@ void Menu::checkLogin(vector<Member> &memberVec,vector<House> &houseVec){
     cin >> password_val;
     for (int i =0; i < memberVec.size() ; i++) {
         if (userName_val == memberVec[i].getUserName()) {
-            currUserIndex = i;
-            exist = 1;
+            if(password_val == memberVec[i].getPassword()){
+                currUserIndex = i;
+                exist = 1;
+            }
         }
     }
     if (exist == 1 ) {
