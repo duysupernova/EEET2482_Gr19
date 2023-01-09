@@ -19,12 +19,12 @@ void House::setOwner(Member* member){
 }
 
 void House::showHouseInfo(){ //show more info for member and admin
-    cout << endl << "HOUSE location = " << location << endl;
+    cout << "HOUSE location = " << location << endl;
     cout << "Description = "<< description << endl;
     cout << "City = " << city << endl;
     cout << "Period for rent: "; periodForOccupy.showInfo();
-    cout << "Points per day: " << ptPerDay;
-    cout << "Minimun rating required: " << minOccupierRating;
+    cout << "Points per day: " << ptPerDay << endl;
+    cout << "Minimun rating required: " << minOccupierRating << endl;
     cout << "House Rating = " << houseRating << endl;                
     cout << "User review(s) = " << endl; //test print out the vector string
     for (string review : userReviews){
@@ -32,7 +32,7 @@ void House::showHouseInfo(){ //show more info for member and admin
     }
     cout << "Requests = "<< endl; //test print out the vector string
     for (Request request : requestsToOccupy){
-        cout << "\t" << request.toString() << "\n";
+        cout << "\t"; request.showInfo() ;cout<< "\n";
     }
 }
 void House::showInfoFull(){
@@ -87,23 +87,25 @@ void House::registerHouseMenu(){ //for member add house
     cin >> tempt;
 }
 
-void House::getUserReview(){//occupier input review about the house
-        string userReview;
-        cout <<"What are your comment about the house: ";
-        getline(cin, userReview);
-        userReviews.push_back (userReview);
-    } //(fix)
+void House::processUserReview(Member* memberReview){//occupier input review about the house
+    string userReview;
+    cout <<"What are your comment about the house: ";
+    getline(cin, userReview);
+    userReviews.push_back (memberReview->getUserName()+": "+userReview);
+} 
 
-void House::getHouseRating(int temp){//occupier rate the score of the house
-        cout << "Please rate quality of the house from -10(Very Dislikke) to 10(Very like): ";
+void House::processHouseRating(){//occupier rate the score of the house
+    int temp;
+    cout << "Please rate quality of the house from -10(Very Dislikke) to 10(Very like): ";
+    cin >> temp;
+    while (temp < -10 || temp > 10){ //Error check if user input wrong scale value
+        cout << "Error!, please rate the quality of house from -10(Very Dislike) to 10(Very like): ";
         cin >> temp;
-        while (temp < -10 || temp > 10){ //Error check if user input wrong scale value
-            cout << "Error!, please rate the quality of house from -10(Very Dislike) to 10(Very like): ";
-            cin >> temp;
-    
-        }
-        houseRating = ((houseRating * requestsToOccupy.size())+ temp)/ (requestsToOccupy.size() +1);
-    }//(fix)
+
+    }
+    houseRating = ((houseRating * requestsToOccupy.size())+ temp)/ (requestsToOccupy.size() +1);
+    numOfRatings += 1;
+}
 
 
 
@@ -247,7 +249,7 @@ void House::sreachHouse(vector<House> &houseVec){
             continue;
         }
         if(houseVec[i].periodForOccupy.isInsidePeriod(periodForSreachHouse)){
-            cout << "[" << indexOfAvailHouse+1 << "]\n";
+            cout <<endl<< "[" << indexOfAvailHouse+1 << "]\n";
             houseVec[i].showHouseInfo();
             availHouses.push_back(&houseVec[i]);
             indexOfAvailHouse += 1;
@@ -281,7 +283,8 @@ void House::rateOccupier(vector<House> &houseVec){
     system("cls");
     // Print out the accepted requests 
     for (int i = 0; i < acceptedRequests.size();i++){
-        cout << i+1 <<". " << acceptedRequests[i].getMemberToOccupy() << ": " << acceptedRequests[i].getPeriod().toString() << endl;
+        cout << i+1 <<". " << acceptedRequests[i].getMemberToOccupy() << ": "; 
+        acceptedRequests[i].getPeriod().showInfo(); cout << endl;
     }
     // Choosing the person to rate
     cout << "Please choose a number to rate that occupier: ";
@@ -350,9 +353,89 @@ void House::viewRequestsMade(vector<House> &houseVec){
 }
 
 
+void House::rateHouse(vector<House> &houseVec){
+    int indexOfRevHouse;
+    string temptStr;
+    vector<Request*> requestsMadeAccepted = {};
+    vector<House*> houseOccupied = {};
+    // Find what houses that you occupied
+    int houseVecSize = houseVec.size();
+    int requestVecSize;
+    for (int i = 0; i < houseVecSize; i++){
+        requestVecSize = houseVec[i].requestsToOccupy.size();
+        for(int j = 0; j < requestVecSize; j++){
+            Request& reqTempt = houseVec[i].requestsToOccupy[j];
+            if (reqTempt.getMemberToOccupy() == this->owner->userName){
+                if(reqTempt.getIsAccept()){                                     
+                    requestsMadeAccepted.push_back(&reqTempt);              // Accepted Request means that the renter has occupy the house
+                    houseOccupied.push_back(&houseVec[i]);
+                }
+            }
+        }
+    }
+    // Display
+    system("cls");
+    cout << "\nOccupied houses :" << endl;
+    for(int i = 0; i < requestsMadeAccepted.size(); i++){
+        cout << "[" << i+1 << "] At " << houseOccupied[i]->location << endl;
+        requestsMadeAccepted[i]->showInfo(); 
+        cout << endl;    
+    }
+    // Process user input
+    cout << "\n\nPress the number of house you want to rate OR a random NUMBER to exit\n";
+    cin >> indexOfRevHouse;
+    indexOfRevHouse--;
+    if (indexOfRevHouse < houseOccupied.size() && indexOfRevHouse >= 0){
+        houseOccupied[indexOfRevHouse]->processHouseRating();
+        cout << "\nRate Added successfully";
+        cout << "\nPress any character and enter to continue\n";
+        cin >> temptStr;
+        return;
+    }
+}
 
 
-
+void House::reviewHouse(vector<House> &houseVec){
+    int indexOfRevHouse;
+    string temptStr;
+    vector<Request*> requestsMadeAccepted = {};
+    vector<House*> houseOccupied = {};
+    // Find what houses that you occupied
+    int houseVecSize = houseVec.size();
+    int requestVecSize;
+    for (int i = 0; i < houseVecSize; i++){
+        requestVecSize = houseVec[i].requestsToOccupy.size();
+        for(int j = 0; j < requestVecSize; j++){
+            Request& reqTempt = houseVec[i].requestsToOccupy[j];
+            if (reqTempt.getMemberToOccupy() == this->owner->userName){
+                if(reqTempt.getIsAccept()){                                     
+                    requestsMadeAccepted.push_back(&reqTempt);              // Accepted Request means that the renter has occupy the house
+                    houseOccupied.push_back(&houseVec[i]);
+                }
+            }
+        }
+    }
+    // Display
+    system("cls");
+    cout << "\nOccupied houses :" << endl;
+    for(int i = 0; i < requestsMadeAccepted.size(); i++){
+        cout << "[" << i+1 << "] At " << houseOccupied[i]->location << endl;
+        requestsMadeAccepted[i]->showInfo(); 
+        cout << endl;    
+    }
+    // Process user input
+    cout << "\n\nPress the number of house you want to review OR a random NUMBER to exit\n";
+    cin >> indexOfRevHouse;
+    cin.ignore(1,'\n');
+    indexOfRevHouse--;
+    if (indexOfRevHouse < houseOccupied.size() && indexOfRevHouse >= 0){
+        houseOccupied[indexOfRevHouse]->processUserReview(this->owner);
+        cout << "\nReview Added successfully";
+        cout << "\nPress any character and enter to continue\n";
+        cin >> temptStr;
+        return;
+    }
+}
 // int main(){
 //     Member m1("Nguyen Huu Khang","metalbox","password",12344442);
 //     m1.showInfo();

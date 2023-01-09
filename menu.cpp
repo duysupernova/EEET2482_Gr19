@@ -80,10 +80,10 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
         cout << "[4] Un-list House" << endl;
         cout << "[5] View and Accept request" << endl;
         cout << "[6] Rate occupier" << endl;
-        cout << "[7] Search house on listing" << endl;
-        cout << "[8] View status of my requests" << endl;
-        cout << "[9] Review house" << endl;
-        cout << "[10] Rate house" << endl;
+        cout << "[7] Search house for rent" << endl;
+        cout << "[8] View status of my rent requests" << endl;
+        cout << "[9] Rate house" << endl;
+        cout << "[10] Review house" << endl;
         cout << "[11] Go back" << endl;
         cout << "[12] End program" << endl;
         cout << "Please enter an option: ";
@@ -113,13 +113,13 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
             houseVec[currUserIndex].sreachHouse(houseVec);              // DONE
             break;
         case 8:
-            houseVec[currUserIndex].viewRequestsMade(houseVec);         // DONE
+            houseVec[currUserIndex].viewRequestsMade(houseVec);         // bug
             break;
         case 9:
-            // Review house
+            houseVec[currUserIndex].rateHouse(houseVec);                // DONE
             break;
         case 10:
-            // Rate house
+            houseVec[currUserIndex].reviewHouse(houseVec);              // DONE
             break;
         case 11:
             //Go back                                       
@@ -247,7 +247,7 @@ void Menu::checkLogin(vector<Member> &memberVec,vector<House> &houseVec){
 
 void Menu::registerAccount(vector<Member> &memberVec,vector<House> &houseVec){
     system("cls");
-    string fullName, userName, phoneNumber, password;
+    string fullName, userName, phoneNumber, password, tempt;
     cout << "Please provide your name: ";
     cin >> fullName;
     cout << "Please enter your user name: ";
@@ -258,7 +258,10 @@ void Menu::registerAccount(vector<Member> &memberVec,vector<House> &houseVec){
     cin >> phoneNumber;
     for (int i =0; i < memberVec.size() ; i++) {
         if( fullName == memberVec[i].getUserName()) {
-            cout << "Sorry! This user name has been taken. Please try again!" << endl;
+            cout << "\n\nSorry! This user name has been taken. Please try again!" << endl;
+            cout << "Press any character and enter to continue\n";
+            cin >> tempt;
+            return;
         }
         else {
             memberVec.push_back(Member(fullName, userName, password, std::stoi(phoneNumber)));
@@ -266,8 +269,10 @@ void Menu::registerAccount(vector<Member> &memberVec,vector<House> &houseVec){
             for (int i = 0; i < houseVec.size(); i++){
                 houseVec[i].setOwner(&memberVec[i]);
             }
-            cout << "Successfull register!" << endl;
+            cout << "\n\nSuccessfull register!" << endl;
             cout << "Welcome, " << fullName << "! We glad you are here.";
+            cout << "Press any character and enter to continue\n";
+            cin >> tempt;
             return;
         }
     }

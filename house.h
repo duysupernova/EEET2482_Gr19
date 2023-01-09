@@ -31,7 +31,7 @@ private:
 
 public:
     House(Member* owner = nullptr,string locationVal="", string descriptVal="", string cityVal="", double hRating=0, int numRating=0,
-           int minOccupierVal = 0, int ptVal = 0, Period period = Period(1,1,1,1,1,1), vector<string> reviews={}, vector<Request> requests={}); 
+           int minOccupierVal = -10, int ptVal = 0, Period period = Period(1,1,1,1,1,1), vector<string> reviews={}, vector<Request> requests={}); 
     Member *getOwner();
     void setOwner(Member* member);
     void showHouseInfo();
@@ -40,8 +40,6 @@ public:
     // void getCity();//
     // void getLocation();
     // void getDescription();
-    void getUserReview();
-    void getHouseRating(int temp);
     Period &getPeriodForOccupy();
 
     /*  HOUSE OWNERS menus */
@@ -54,9 +52,13 @@ public:
     void acceptRequest();
     void rateOccupier(vector<House> &houseVec);
     /*  RENTERS menus */
+    void processHouseRating();
+    void processUserReview(Member *member);
     void sreachHouse(vector<House> &houseVec);
     void checkIfQualify(Member member);
     void viewRequestsMade(vector<House> &houseVec);
+    void rateHouse(vector<House> &houseVec);
+    void reviewHouse(vector<House> &houseVec);
 
 
     friend void saveToFile(string fileName, vector<House> &houseArr, char firstDelimiter, char secDelimiter);
