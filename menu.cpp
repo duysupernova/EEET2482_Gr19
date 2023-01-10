@@ -113,7 +113,7 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
             houseVec[currUserIndex].sreachHouse(houseVec);              // DONE
             break;
         case 8:
-            houseVec[currUserIndex].viewRequestsMade(houseVec);         // bug
+            houseVec[currUserIndex].viewRequestsMade(houseVec);         // buggy somehow?
             break;
         case 9:
             houseVec[currUserIndex].rateHouse(houseVec);                // DONE

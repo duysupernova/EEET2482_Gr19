@@ -17,6 +17,7 @@ public:
     Period(int startDay,int startMth, int startY, int endDay, int endMth, int endY);
     void showInfo();
     string toString();
+    int length();
     bool isDateInPeriod(tm dateToCheck);
     bool isOverlapPeriod(Period periodToCheck);
     bool isInsidePeriod(Period periodToCheck);

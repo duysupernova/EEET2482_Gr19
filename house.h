@@ -49,13 +49,13 @@ public:
     void viewRequest();
     void addRequest(Request requestToAdd);
     void addReview(Member *member, string reviewString);
-    void acceptRequest();
+    void acceptRequest(vector<Member> &memberVec);
     void rateOccupier(vector<House> &houseVec);
     /*  RENTERS menus */
     void processHouseRating();
     void processUserReview(Member *member);
     void sreachHouse(vector<House> &houseVec);
-    void checkIfQualify(Member member);
+    bool checkIfQualify(Member *member, Period &period);
     void viewRequestsMade(vector<House> &houseVec);
     void rateHouse(vector<House> &houseVec);
     void reviewHouse(vector<House> &houseVec);

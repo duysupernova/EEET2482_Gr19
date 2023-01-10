@@ -112,15 +112,18 @@ void House::processHouseRating(){//occupier rate the score of the house
 
 
 
-void House::checkIfQualify(Member member){
-    if(ptPerDay < member.getCreditPoint()) {
-        cout << "You dont have enough point to rent this house!";
+bool House::checkIfQualify(Member *member, Period &periodRequested){
+    if(ptPerDay * periodRequested.length() > member->getCreditPoint()) {               
+        cout << "You dont have enough point to rent this house!\n";
+        return false;
     } 
-    if (ptPerDay < member.getOccupierScore()) {
-        cout << "You dont have enough point to rent this house!";
+    else if (minOccupierRating < member->getOccupierScore()) {
+        cout << "You dont have enough rating to rent this house!\n";
+        return false;
     }
     else {
-        cout << "You have successfully rent this house!";
+        cout << "You are eligible to rent this house!\n";
+        return true;
     }
 }
 
@@ -172,8 +175,9 @@ void House::viewRequest(){
     }
 }
 
-
-void House::acceptRequest(){
+/* OWNER MENU */
+void House::acceptRequest(vector<Member> &memberVec){
+    int memVSize = memberVec.size();
     string temp;
     int indexOfAccptReq;
     vector<Request*> pendingRequests = {};            
@@ -193,20 +197,28 @@ void House::acceptRequest(){
     cout << "Or a random NUMBER to exit\n";
     cin >> indexOfAccptReq;
     indexOfAccptReq -= 1;
-    if(indexOfAccptReq >= pendingRequests.size() || indexOfAccptReq < 0){
-        return;
+    if(indexOfAccptReq >= pendingRequests.size() || indexOfAccptReq < 0){           
+        return;                                                     
     } else {
         pendingRequests[indexOfAccptReq]->setIsAccept(true);
-        // Find requests that are overlapping
+        for (int i = 0; i < memVSize; i++){
+            if (memberVec[i].userName == pendingRequests[indexOfAccptReq]->getMemberToOccupy()){                    // Find the renter who made the request
+                int transferredPt = (this->ptPerDay)*(pendingRequests[indexOfAccptReq]->getPeriod().length());      // Money transferring
+                memberVec[i].creditPoint -= transferredPt;                                                          // From renter to owner
+                this->owner->creditPoint += transferredPt;
+                i = memVSize;                                                   // To exit the loop
+            }
+        }
+        // Find the index of the requests that are overlapping
         for (int i = 0; i < requestsToOccupy.size(); i++) {
-            if(requestsToOccupy[i].getIsAccept()){
+            if(requestsToOccupy[i].getIsAccept()){                                      // Not delete accept request to save the info for later rating and reviews 
                 continue;
             }
             if(pendingRequests[indexOfAccptReq]->getPeriod().isOverlapPeriod(requestsToOccupy[i].getPeriod())) {
                 indexOfReqDel.push_back(i);
             }
         }
-        // Finally delete the requests
+        // Finally delete the requests and deal
         for (int i = indexOfReqDel.size() - 1; i >= 0; i--) {
             requestsToOccupy.erase(requestsToOccupy.begin()+indexOfReqDel[i]);
             cout << "A overlapped request deleted!\n";
@@ -218,6 +230,7 @@ void House::acceptRequest(){
     }
 }
 
+/* RENTER MENU */
 void House::sreachHouse(vector<House> &houseVec){
     string temp;
     int sDate, sMonth, sYear, eDate, eMonth, eYear;
@@ -260,6 +273,12 @@ void House::sreachHouse(vector<House> &houseVec){
     cin >> indexOfReqHouse;
     indexOfReqHouse--;
     if (indexOfReqHouse < availHouses.size() && indexOfReqHouse >= 0){
+        if(!availHouses[indexOfReqHouse]->checkIfQualify(this->owner,periodForSreachHouse)){         
+        cout << "\nPress any character and enter to return\n";            // This menu pops up if renter fails to qualify
+        cin >> temp;
+        return;
+        };
+        // Processing successful request
         availHouses[indexOfReqHouse]->addRequest(Request(this->owner->getUserName(),periodForSreachHouse,false));
         cout << "\n\nRequest Added successfully";
         cout << "\nPress any character and enter to continue\n";
@@ -291,7 +310,7 @@ void House::rateOccupier(vector<House> &houseVec){
     cin >> temptIndex; 
     temptIndex -= 1;
     // Actually go
-    if(temptIndex >= acceptedRequests.size()){    // To advoid out of bounds
+    if(temptIndex >= acceptedRequests.size()){    // To avoid out of bounds
         cout << "\n\nInvalid input!\n";
         cout << "Press any character and enter to continue \n";
         cin >> temptStr;
@@ -338,7 +357,7 @@ void House::viewRequestsMade(vector<House> &houseVec){
     system("cls");
     cout << "All pending requests:" << endl;
     for(int i = 0; i < requestsMade.size(); i++){
-        cout << "[" << i+1 << "] At " << requestHLoca[i] << endl;
+        cout << "[" << i+1 << "] At " << requestHLoca[i] << endl;               // Somehow, sometimes abnormally end the program at this stage
         requestsMadeAccepted[i]->showInfo(); 
         cout << endl;    
     }
@@ -361,6 +380,7 @@ void House::rateHouse(vector<House> &houseVec){
     // Find what houses that you occupied
     int houseVecSize = houseVec.size();
     int requestVecSize;
+    // Accepted request from this user means that this user has occupied the house
     for (int i = 0; i < houseVecSize; i++){
         requestVecSize = houseVec[i].requestsToOccupy.size();
         for(int j = 0; j < requestVecSize; j++){

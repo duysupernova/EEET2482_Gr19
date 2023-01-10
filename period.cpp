@@ -42,6 +42,10 @@ string Period::toString(){
     return std::strcat(startInfo, strcat(divide,endInfo) );
 }
 
+int Period::length(){
+    return difftime(mktime(&endDate),mktime(&startDate)) / 86400 + 1;  // 86400 is the total amount of seconds in a day
+}
+
 bool Period::isDateInPeriod(tm dateToCheck){                                 // Including start and date
     return (difftime(mktime(&startDate),mktime(&dateToCheck)) <= 0          // difftime return negative double if the first date is sooner
             && difftime(mktime(&dateToCheck),mktime(&endDate)) <= 0);       // Is the date between start and date 
@@ -70,8 +74,8 @@ tm toTM(int dd, int mm, int yy){
 }
 
 // int main() {
-//     Period period1(9,2,2022,9,3,2023);
-//     Period period2(toTM(10,2,2022),toTM(14,3,2022));
+//     Period period1(1,2,2023,2,2,2023);
+//     Period period2(toTM(1,2,2023),toTM(2,3,2023));
 //     period1.showInfo();
 //     period2.showInfo();
 //     time_t now = time(NULL);
@@ -82,7 +86,10 @@ tm toTM(int dd, int mm, int yy){
 //     cout << period1.isInsidePeriod(period2) << "\n";
 //     cout << period2.isInsidePeriod(period1) << "\n";
 
-//     cout << period1.toString();
+//     cout << period1.toString() << "\n";
+
+//     cout << period1.length() << "\n";
+//     cout << period2.length()<< "\n";
 
 //     return 0;
 // }
