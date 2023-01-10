@@ -115,16 +115,13 @@ void House::processHouseRating(){//occupier rate the score of the house
 
 
 bool House::checkIfQualify(Member *member, Period &periodRequested){
-    if(ptPerDay * periodRequested.length() > member->getCreditPoint()) {               
-        cout << "You dont have enough point to rent this house!\n";
+    if(ptPerDay * periodRequested.length() > member->getCreditPoint()) {       
         return false;
     } 
     else if (minOccupierRating > member->getOccupierScore()) {
-        cout << "You dont have enough rating to rent this house!\n";
         return false;
     }
     else {
-        cout << "You are eligible to rent this house!\n";
         return true;
     }
 }
@@ -194,8 +191,9 @@ void House::acceptRequest(vector<Member> &memberVec){
         if(!requestsToOccupy[i].getIsAccept()){
             for(int j = 0; j < memberVec.size(); j++){
                 if(memberVec[j].userName == requestsToOccupy[i].getMemberToOccupy()){
-                    cout << "[" << indexOfReq+1 << "]\n";
+                    cout << "\n[" << indexOfReq+1 << "]";
                     pendingRequests.push_back(&requestsToOccupy[i]);
+                    requestsToOccupy[i].showInfo();
                     memberVec[j].showInfo();
                     indexOfReq ++;
                 }
@@ -277,6 +275,10 @@ void House::sreachHouse(vector<House> &houseVec){
         if(houseVec[i].city != this->city && this->city != ""){     // Only not the houses when the user has defined city and it is different
             continue;                                               // User who has not undefined city will see all the houses across the cities
         }
+        if(!houseVec[i].checkIfQualify(this->owner,periodForSreachHouse)){         // Check if renter have enough rating and money
+            continue;
+        };
+        
         if(houseVec[i].periodForOccupy.isInsidePeriod(periodForSreachHouse)){
             cout <<endl<< "[" << indexOfAvailHouse+1 << "]\n";
             houseVec[i].showHouseInfo();
@@ -289,11 +291,6 @@ void House::sreachHouse(vector<House> &houseVec){
     cin >> indexOfReqHouse;
     indexOfReqHouse--;
     if (indexOfReqHouse < availHouses.size() && indexOfReqHouse >= 0){
-        if(!availHouses[indexOfReqHouse]->checkIfQualify(this->owner,periodForSreachHouse)){         
-        cout << "\nPress any character and enter to return\n";            // This menu pops up if renter fails to qualify
-        cin >> temp;
-        return;
-        };
         // Processing successful request
         availHouses[indexOfReqHouse]->addRequest(Request(this->owner->getUserName(),periodForSreachHouse,false));
         cout << "\n\nRequest Added successfully";

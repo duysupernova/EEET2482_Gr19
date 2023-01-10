@@ -52,7 +52,7 @@ void Menu::guestMenu(vector<Member> &memberVec,vector<House> &houseVec){
             showHousesInfoMini(houseVec);                       // DONE
             break;
         case 2:
-            registerAccount(memberVec,houseVec);                // havent checked user input
+            registerAccount(memberVec,houseVec);                // d
             break;
         case 3:
             checkLogin(memberVec,houseVec);                     // DONE
@@ -168,6 +168,7 @@ void Menu::adminMenu(vector<Member> &memberVec,vector<House> &houseVec){
 }
 void Menu::adminLogin(vector<Member> &memberVec,vector<House> &houseVec) {
     string username, password;
+    system("cls");
     string usernameAdmin = "Admin";
     string passwordAdmin = "12345";
 
@@ -190,9 +191,10 @@ void Menu::mainMenu(int &currUserIndex, vector<Member> &memberVec,vector<House> 
     int input = 0;
     do {
         system("cls");
-        cout << "******************************************************" << endl;
-        cout << "        VACATION HOUSE EXCHANGE APPLICATION" << endl;
-        cout << "******************************************************" << endl << endl;
+        cout << "*********************************************" << endl;
+        cout << "     VACATION HOUSE EXCHANGE APPLICATION" << endl;
+        cout << "         EEET2482/COSC2082 ASSIGNMENT "<<endl;
+        cout << "*********************************************" << endl << endl;
         cout << "Instructors: Mr.Linh Tran & Phong Ngo" << endl;
         cout << "Group: 19" << endl;
         cout << "s3924427, Nguyen Tien" << endl;

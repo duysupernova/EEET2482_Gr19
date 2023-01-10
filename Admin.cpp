@@ -13,7 +13,7 @@ void Admin::showMemberList(vector<Member> &memberVec){
     string tempt;
     int index = 0;
     system("cls");
-    cout << "**==All registered members==**";
+    cout << "**==All registered members==**\n";
     for (Member member : memberVec){
         cout << "\n[" << index+1 << "]";
         member.showInfo();
@@ -27,7 +27,7 @@ void Admin::showHouseList(vector<House> &houseVec){
     string tempt;
     int index = 0;
     system("cls");
-    cout << "**==All registered house==**";
+    cout << "**==All registered house==**\n";
     for (House house : houseVec){
         cout << "[" << index+1 << "]\n";
         house.showHouseInfo();
