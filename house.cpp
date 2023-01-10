@@ -37,8 +37,10 @@ void House::showHouseInfo(){ //show more info for member and admin
 }
 void House::showInfoFull(){
     string tempt;
+    cout << "\n==YOUR INFO==\n";
     this->owner->showInfo();
-    showHouseInfo();
+    cout << "\n--YOUR HOUSE--\n";
+    this->showHouseInfo();
     cout << "\n\nPress a character and enter to continue\n";
     cin >> tempt;
 }
@@ -117,7 +119,7 @@ bool House::checkIfQualify(Member *member, Period &periodRequested){
         cout << "You dont have enough point to rent this house!\n";
         return false;
     } 
-    else if (minOccupierRating < member->getOccupierScore()) {
+    else if (minOccupierRating > member->getOccupierScore()) {
         cout << "You dont have enough rating to rent this house!\n";
         return false;
     }
@@ -178,6 +180,7 @@ void House::viewRequest(){
 /* OWNER MENU */
 void House::acceptRequest(vector<Member> &memberVec){
     int memVSize = memberVec.size();
+    int indexOfReq = 0;
     string temp;
     int indexOfAccptReq;
     vector<Request*> pendingRequests = {};            
@@ -189,11 +192,18 @@ void House::acceptRequest(vector<Member> &memberVec){
     // Filter out and print the unaccepted requests
     for (int i = 0; i < requestsToOccupy.size(); i++){
         if(!requestsToOccupy[i].getIsAccept()){
-            pendingRequests.push_back(&requestsToOccupy[i]);
-            cout << i+1 <<". " << requestsToOccupy[i].getMemberToOccupy() << ": " << requestsToOccupy[i].getPeriod().toString() << endl;
+            for(int j = 0; j < memberVec.size(); j++){
+                if(memberVec[j].userName == requestsToOccupy[i].getMemberToOccupy()){
+                    cout << "[" << indexOfReq+1 << "]\n";
+                    pendingRequests.push_back(&requestsToOccupy[i]);
+                    memberVec[j].showInfo();
+                    indexOfReq ++;
+                }
+            }
+
         }
     }
-    cout << "Please enter a number to accept a request\n ";
+    cout << "\n\nPlease enter a number to accept a request\n ";
     cout << "Or a random NUMBER to exit\n";
     cin >> indexOfAccptReq;
     indexOfAccptReq -= 1;
@@ -204,7 +214,7 @@ void House::acceptRequest(vector<Member> &memberVec){
         for (int i = 0; i < memVSize; i++){
             if (memberVec[i].userName == pendingRequests[indexOfAccptReq]->getMemberToOccupy()){                    // Find the renter who made the request
                 int transferredPt = (this->ptPerDay)*(pendingRequests[indexOfAccptReq]->getPeriod().length());     
-                if (memberVec[i].creditPoint < transferredPt){                          // If renter dont have enough point
+                if (memberVec[i].creditPoint < transferredPt){                                                      // If renter dont have enough point
                     cout << "\n\nRenter now don't have enough credit point\n";
                     cout << "Press any character and enter to return\n";
                     cin >> temp;
@@ -227,7 +237,7 @@ void House::acceptRequest(vector<Member> &memberVec){
         // Finally delete the requests 
         for (int i = indexOfReqDel.size() - 1; i >= 0; i--) {
             requestsToOccupy.erase(requestsToOccupy.begin()+indexOfReqDel[i]);
-            cout << "A overlapped request deleted!\n";
+            cout << "\nA overlapped request deleted!";
         }
         cout << "\n\nRequest Accepted successfully\n";
         cout << "Press any character and enter to continue\n";
@@ -245,7 +255,7 @@ void House::sreachHouse(vector<House> &houseVec){
     vector<House*> availHouses = {};
 
     system("cls");
-    cout << "**Please enter the period you want to occupy at this house**\n\n";
+    cout << "**==Please enter the period you want to occupy==**\n\n";
     cout << "Please enter start day: ";
     cin >> sDate;
     cout << "Please enter month: ";
@@ -363,8 +373,8 @@ void House::viewRequestsMade(vector<House> &houseVec){
     system("cls");
     cout << "All pending requests:" << endl;
     for(int i = 0; i < requestsMade.size(); i++){
-        cout << "[" << i+1 << "] At " << requestHLoca[i] << endl;               // Somehow, sometimes abnormally end the program at this stage
-        requestsMadeAccepted[i]->showInfo(); 
+        cout << "[" << i+1 << "] At " << requestHLoca[i] << endl;   
+        requestsMade[i]->showInfo();            
         cout << endl;    
     }
     cout << "\nAccepted requests:" << endl;

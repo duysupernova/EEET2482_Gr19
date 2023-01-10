@@ -12,8 +12,8 @@ string Request::toString(){
     return memberWantToOccupy + "~" + periodToOccupy.toString() + "~" + stringAccept;
 }
 void Request::showInfo(){
-    cout << memberWantToOccupy << ": ";periodToOccupy.showInfo();
-    cout << "\tStatus: " << (isAccepted?"Accepted":"OnGoing");
+    cout << this->memberWantToOccupy << ": ";periodToOccupy.showInfo();
+    cout << "\tStatus: " << (isAccepted?"Accepted":"On Going");
 };
 
 

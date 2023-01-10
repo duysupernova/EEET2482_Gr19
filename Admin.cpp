@@ -1,60 +1,5 @@
-// #include <iostream>
-// #include <istream>
-// #include <fstream>
-// #include <stdlib.h>
 
-// using std::string;
-// using std::cin;
-// using std::cout;
-// using std::ifstream;
-
-// class Admin {
-//     private:
-//     string Ad_username;
-//     string Ad_password;
-//     public:
-//     int login_form();
-// };
-// int Admin::login_form(){
-//     int exist;
-//     string checkUsername, checkPassword;
-//     cout << "Please enter admin username: ";
-//     cin >> Ad_password;
-//     cout << "Please enter admin password: ";
-//     cin >> Ad_password;
-
-//     std::fstream AdminData;
-//     AdminData.open("AdminData.txt", std::ios::out);
-
-//     if (!AdminData) {
-//         std::cerr << "Fail to create/open file \n";
-//         return -1;
-//     }
-
-//     AdminData << "Admin 12345";
-//     AdminData.close();
-//     ifstream input("AdminData.txt");
-
-//     while(input >> checkUsername >> checkPassword) {
-//         if(checkUsername == Ad_username && checkPassword == Ad_password) {
-//             exist = 1;
-//         }
-//     }
-//     input.close();
-//     if(exist == 1) {
-//         cout << "Welcome, " << Ad_username << "!";
-//         cin.get();
-//         cin.get();
-//         // main_menu();
-//     }
-//     else {
-//         cout << "Failed to log in. Please enter the correct password/username for Admin log in!";
-//         cin.get();
-//         cin.get();
-//         // main_menu();
-//     }
-//     }
-#include "Admin2.h"
+#include "Admin.h"
 
 #include <iostream>
 
@@ -62,27 +7,56 @@ using std::cin;
 using std::cout;
 using std::string;
 
-int Admin::adminLogin() {
-    string username;
-    string password;
 
-    //checkLogin
-    cout << "Please enter Admin username: ";
-    cin >> username;
-    cout << "Please enter Admin password";
-    cin >> password;
 
-    if(username == usernameAdmin && password == passwordAdmin) {
-        Admin::loggedin = 1;
-        return 1;
+void Admin::showMemberList(vector<Member> &memberVec){
+    string tempt;
+    int index = 0;
+    system("cls");
+    cout << "**==All registered members==**";
+    for (Member member : memberVec){
+        cout << "\n[" << index+1 << "]";
+        member.showInfo();
+        index++;
     }
-    else {
-        return 0;
+    cout << "\n\nPress a character and enter to continue!\n";
+    cin >> tempt;
+}
+
+void Admin::showHouseList(vector<House> &houseVec){
+    string tempt;
+    int index = 0;
+    system("cls");
+    cout << "**==All registered house==**";
+    for (House house : houseVec){
+        cout << "[" << index+1 << "]\n";
+        house.showHouseInfo();
+        index ++;
     }
+    cout << "\n\nPress a character and enter to continue!\n";
+    cin >> tempt;
+}
+
+// int Admin::login_form(){
+// int exist;
+// string checkUsername, checkPassword;
+// cout << "Please enter admin username: ";
+// cin >> Ad_password;
+// cout << "Please enter admin password: ";
+// cin >> Ad_password;
+
+// std::fstream AdminData;
+// AdminData.open("AdminData.txt", std::ios::out);
+
+// if (!AdminData) {
+//     std::cerr << "Fail to create/open file \n";
+//     return -1;
+// }
+
 
     //Show member list
 
 
     //Show house list
 
-}
+

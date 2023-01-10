@@ -44,14 +44,12 @@ void Member::calOcuNewScore(){
 
 void Member::showInfo(){
     string tempt;
-    system("cls");
-    cout << "*====YOUR INFO====*\n";
     cout << "\n";
-    cout << "FULL NAME= " << fullName << "\n";
-    cout << "userName= " << userName << "\n";
-    cout << "password= " << password << "\n";
-    cout << "phoneNumber= " << phoneNumber << "\n";
-    cout << "credit point= " << creditPoint << "\n";
+    cout << "Full name= " << fullName << "\n";
+    cout << "UserName= " << userName << "\n";
+    cout << "Password= " << password << "\n";
+    cout << "PhoneNumber= " << phoneNumber << "\n";
+    cout << "Credit point= " << creditPoint << "\n";
     cout << "Occupation score= " << occupierRatingScore << "\n";
 
 }

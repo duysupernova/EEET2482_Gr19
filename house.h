@@ -31,7 +31,7 @@ private:
 
 public:
     House(Member* owner = nullptr,string locationVal="", string descriptVal="", string cityVal="", double hRating=0, int numRating=0,
-           int minOccupierVal = -10, int ptVal = 0, Period period = Period(1,1,1,1,1,1), vector<string> reviews={}, vector<Request> requests={}); 
+           int minOccupierVal = -10, int ptVal = 0, Period period = Period(1,1,1970,2,1,1970), vector<string> reviews={}, vector<Request> requests={}); 
     Member *getOwner();
     void setOwner(Member* member);
     void showHouseInfo();
