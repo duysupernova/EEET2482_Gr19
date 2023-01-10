@@ -274,8 +274,8 @@ void House::sreachHouse(vector<House> &houseVec){
     cout << "\n\n*====Available houses====*\n";
     cout << "From ";periodForSreachHouse.showInfo();
     for (int i = 0; i < houseVec.size(); i++){
-        if(houseVec[i].city != this->city){
-            continue;
+        if(houseVec[i].city != this->city && this->city != ""){     // Only not the houses when the user has defined city and it is different
+            continue;                                               // User who has not undefined city will see all the houses across the cities
         }
         if(houseVec[i].periodForOccupy.isInsidePeriod(periodForSreachHouse)){
             cout <<endl<< "[" << indexOfAvailHouse+1 << "]\n";

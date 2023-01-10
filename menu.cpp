@@ -82,7 +82,7 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
         cout << "[5] View and Accept request" << endl;
         cout << "[6] Rate occupier" << endl;
         cout << "[7] Search house for rent & make request" << endl;
-        cout << "[8] View status of my rent requests" << endl;
+        cout << "[8] View status of my requests" << endl;
         cout << "[9] Rate house" << endl;
         cout << "[10] Review house" << endl;
         cout << "[11] Log out" << endl;
