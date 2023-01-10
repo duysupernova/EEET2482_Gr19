@@ -81,11 +81,11 @@ void Menu::memberMenu(int &currUserIndex, vector<Member> &memberVec,vector<House
         cout << "[4] Un-list House" << endl;
         cout << "[5] View and Accept request" << endl;
         cout << "[6] Rate occupier" << endl;
-        cout << "[7] Search house for rent" << endl;
+        cout << "[7] Search house for rent & make request" << endl;
         cout << "[8] View status of my rent requests" << endl;
         cout << "[9] Rate house" << endl;
         cout << "[10] Review house" << endl;
-        cout << "[11] Go back" << endl;
+        cout << "[11] Log out" << endl;
         cout << "[12] End program" << endl;
         cout << "Please enter an option: ";
         cin >> input;
@@ -187,12 +187,18 @@ void Menu::adminLogin(vector<Member> &memberVec,vector<House> &houseVec) {
     }
 }
 void Menu::mainMenu(int &currUserIndex, vector<Member> &memberVec,vector<House> &houseVec){
-    cout << "******************************************************" << endl;
-    cout << "        VACATION HOUSE EXCHANGE APPLICATION" << endl;
-    cout << "******************************************************" << endl;
     int input = 0;
     do {
         system("cls");
+        cout << "******************************************************" << endl;
+        cout << "        VACATION HOUSE EXCHANGE APPLICATION" << endl;
+        cout << "******************************************************" << endl << endl;
+        cout << "Instructors: Mr.Linh Tran & Phong Ngo" << endl;
+        cout << "Group: 19" << endl;
+        cout << "s3924427, Nguyen Tien" << endl;
+        cout << "s3852307, Nguyen Ha Minh Duy" << endl;
+        cout << "s3927067, Nguyen Huu Minh Khang" << endl;
+        cout << "s3955486, Nguyen Dang Gia Hoang" << endl << endl;
         cout << "User the app as:" << endl;
         cout << "[1] Guest" << endl;
         cout << "[2] Member" << endl;

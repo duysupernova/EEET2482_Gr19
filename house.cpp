@@ -19,10 +19,10 @@ void House::setOwner(Member* member){
 }
 
 void House::showHouseInfo(){ //show more info for member and admin
-    cout << "HOUSE location = " << location << endl;
+    cout << "House location = " << location << endl;
     cout << "Description = "<< description << endl;
     cout << "City = " << city << endl;
-    cout << "Period for rent: "; periodForOccupy.showInfo();
+    cout << "Period for rent: "; periodForOccupy.showInfo();cout << endl;
     cout << "Points per day: " << ptPerDay << endl;
     cout << "Minimun rating required: " << minOccupierRating << endl;
     cout << "House Rating = " << houseRating << endl;                
@@ -45,7 +45,7 @@ void House::showInfoFull(){
     cin >> tempt;
 }
 void House::showInfoMini(){
-    cout << endl << "HOUSE location = " << location << endl;
+    cout << endl << "House location = " << location << endl;
     cout << "Description = "<< description << endl;
     cout << "City = " << city << endl;
 }
@@ -154,7 +154,7 @@ void House::listHouse(){
     cin >> minOccupierRating;
         
     cout << "\nList house from " ; periodForOccupy.showInfo(); 
-    cout << "With price " << ptPerDay << " per day for renters rating above " << minOccupierRating;
+    cout << "\nWith price " << ptPerDay << " per day for renters rating above " << minOccupierRating;
 
     cout << "\n\nPress any character and enter to continue\n";
     cin >> tempt;

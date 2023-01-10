@@ -174,6 +174,7 @@ int main() {
     vector<House> houseVec = {};
     int currentMemberIndex = -1;
     loadFromFile("database.csv",memberVec,houseVec,'~');
+    system("cls");
     Menu menu;
     menu.mainMenu(currentMemberIndex,memberVec,houseVec);
 
