@@ -203,8 +203,14 @@ void House::acceptRequest(vector<Member> &memberVec){
         pendingRequests[indexOfAccptReq]->setIsAccept(true);
         for (int i = 0; i < memVSize; i++){
             if (memberVec[i].userName == pendingRequests[indexOfAccptReq]->getMemberToOccupy()){                    // Find the renter who made the request
-                int transferredPt = (this->ptPerDay)*(pendingRequests[indexOfAccptReq]->getPeriod().length());      // Money transferring
-                memberVec[i].creditPoint -= transferredPt;                                                          // From renter to owner
+                int transferredPt = (this->ptPerDay)*(pendingRequests[indexOfAccptReq]->getPeriod().length());     
+                if (memberVec[i].creditPoint < transferredPt){                          // If renter dont have enough point
+                    cout << "\n\nRenter now don't have enough credit point\n";
+                    cout << "Press any character and enter to return\n";
+                    cin >> temp;
+                    return;
+                }
+                memberVec[i].creditPoint -= transferredPt;                                                          // Money transferring from renter to owner
                 this->owner->creditPoint += transferredPt;
                 i = memVSize;                                                   // To exit the loop
             }
@@ -218,7 +224,7 @@ void House::acceptRequest(vector<Member> &memberVec){
                 indexOfReqDel.push_back(i);
             }
         }
-        // Finally delete the requests and deal
+        // Finally delete the requests 
         for (int i = indexOfReqDel.size() - 1; i >= 0; i--) {
             requestsToOccupy.erase(requestsToOccupy.begin()+indexOfReqDel[i]);
             cout << "A overlapped request deleted!\n";
